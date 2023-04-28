@@ -5,6 +5,7 @@ import com.example.bookreview.model.Book;
 import com.example.bookreview.repository.BestSellerRepository;
 import com.example.bookreview.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,10 +14,41 @@ import java.util.List;
 public class BookService {
 
 private BookRepository bookRepository;
+private BestSellerRepository bestSellerRepository;
 
+    @Autowired
+    public void setBookRepository(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
 
+    @Autowired
+    public void setBestSellerRepository(BestSellerRepository bestSellerRepository) {
+        this.bestSellerRepository = bestSellerRepository;
+    }
+
+    //ADD User getCurrentLoggedInUser() Method later
 
 
     public List<Book> getBooks() {
+        List<Book> books = bookRepository.findBookByIsbn(BookService.getCurrentLoggedInUser().getId());
+        if (books.isEmpty()) {
+            throw new InformationNotFoundException
+                    ("no books found for isbn " + BookService.getCurrentLoggedInUser().getId());
+        } else {
+            return books;
+        }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

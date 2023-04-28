@@ -23,7 +23,7 @@ public class BookController {
 
     private BookService bookService;
     private BestSellerService bestSellerService;
-    private ReviewService reviewService;
+
 
     @Autowired//going to inject BookService at runtime by the Spring
     public void setBookService(BookService bookService) {
@@ -33,11 +33,6 @@ public class BookController {
     @Autowired
     public void setBestSellerService(BestSellerService bestSellerService) {
         this.bestSellerService = bestSellerService;
-    }
-
-    @Autowired
-    public void setReviewService(ReviewService reviewService) {
-        this.reviewService = reviewService;
     }
 
 
