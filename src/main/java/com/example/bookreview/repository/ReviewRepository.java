@@ -18,5 +18,5 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     //reviews that match a specified review date and genre
     Review findReviewsByReviewDateAndGenre(LocalDate reviewDate, String genre);
-    
+
 }
