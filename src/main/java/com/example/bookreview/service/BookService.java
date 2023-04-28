@@ -1,7 +1,9 @@
 package com.example.bookreview.service;
 
+import com.example.bookreview.exception.InformationNotFoundException;
 import com.example.bookreview.model.BestSeller;
 import com.example.bookreview.model.Book;
+import com.example.bookreview.model.User;
 import com.example.bookreview.repository.BestSellerRepository;
 import com.example.bookreview.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,11 @@ private BestSellerRepository bestSellerRepository;
     }
 
     //ADD User getCurrentLoggedInUser() Method later
+    public static User getCurrentLoggedInUser() {
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().
+                getAuthentication().getPrincipal();
+        return userDetails.getUser();
+    }
 
 
     public List<Book> getBooks() {
