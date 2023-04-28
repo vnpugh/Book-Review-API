@@ -1,8 +1,10 @@
 package com.example.bookreview.controller;
 
 
+import com.example.bookreview.model.BestSeller;
 import com.example.bookreview.model.Book;
 import com.example.bookreview.repository.BookRepository;
+import com.example.bookreview.service.BestSellerService;
 import com.example.bookreview.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,32 +21,36 @@ public class BookController {
      *BookController uses BookService to perform operations related to books.
      */
 
-    private BookRepository bookRepository;
     private BookService bookService;
+    private BestSellerService bestSellerService;
+    private ReviewService reviewService;
 
     @Autowired//going to inject BookService at runtime by the Spring
     public void setBookService(BookService bookService) {
         this.bookService = bookService;
     }
-    // http://localhost:9092/api/books/
-    @GetMapping(path = "/books/")
-    public List<Book> getCategories() {
-        return bookService.getbooks();
+
+    @Autowired
+    public void setBestSellerService(BestSellerService bestSellerService) {
+        this.bestSellerService = bestSellerService;
+    }
+
+    @Autowired
+    public void setReviewService(ReviewService reviewService) {
+        this.reviewService = reviewService;
     }
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
+    @GetMapping(path = "/books/") // http://localhost:9092/api/books/
+    public List<Book> getBooks() {
+        return bookService.getBooks();
+    }
+    @GetMapping(path = "/bestsellers/") // http://localhost:9092/api/books/
+    public List<BestSeller> getBestSellers() {
+        return bestSellerService.getAllBestSellers();
+    }
 
 }
