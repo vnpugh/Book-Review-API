@@ -1,5 +1,6 @@
 package com.example.bookreview.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import javax.persistence.*;
@@ -35,6 +36,12 @@ public class Book {
     @OneToMany(mappedBy = "book", orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Review> reviewList;
+
+    /**
+     *want to create a relationship where many books can be on the bestsellers list -> many-to-many.
+     */
+    @ManyToMany(mappedBy = "books")
+    private List<Bestseller> bestsellers;
 
     public Book(Long id, String title, String author, String genre,
                 Integer yearPublished, String isbn, double rating) {

@@ -1,5 +1,7 @@
 package com.example.bookreview.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -27,6 +29,19 @@ public class Review {
     private Double rating;
     @Column
     private String comment;
+
+    /**
+     *many reviews can belong to one book
+     *a review is associated with one user.
+     */
+    @ManyToOne
+    @JoinColumn(name = "book_id")
+    private Book book;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
 
     public Review(Long id, String username, LocalDate reviewDate, String title,
                   String author, String genre, Double rating, String comment) {
