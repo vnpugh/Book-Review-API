@@ -15,7 +15,5 @@ public interface BestSellerRepository extends JpaRepository<BestSeller, Long> {
     //find a bestselling book by # of weeks and rating
    BestSeller findBestSellerByWeeksAndRating(Integer weeks, Double rating);
 
-   //retrieve all best sellers
-    List<BestSeller> findAll();
 
 }
