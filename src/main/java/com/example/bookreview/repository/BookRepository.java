@@ -27,5 +27,5 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
      //returns a list of bestselling books filtered by author
      List<Book> findBooksByBestsellers(String author);
-     
+
 }
