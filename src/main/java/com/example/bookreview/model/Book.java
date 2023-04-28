@@ -28,7 +28,8 @@ public class Book {
     private double rating;
 
     /**
-     *One book can have many reviews associated with it -> book entity will have a list of reviews.
+     *one-to-many relationship between the book class and the review class.
+     *one book can have many reviews associated with it -> book entity will have a list of reviews.
      *mappedBy = "book": an inverse relationship -> the name of the book attribute maps back to the reviewList.
      *orphanRemoval = true: delete a review from the database if it is removed from a book's reviewList.
      *@LazyCollection(LazyCollectionOption.FALSE): load the review list when the book is retrieved from the database.
@@ -38,10 +39,16 @@ public class Book {
     private List<Review> reviewList;
 
     /**
-     *want to create a relationship where many books can be on the bestsellers list -> many-to-many.
+     *many-to-many relationship between the book class and the bestseller class.
+     *many books can be on the bestsellers list.
+     *relationship is mapped by the books field in the bestseller class.
      */
     @ManyToMany(mappedBy = "books")
-    private List<Bestseller> bestsellers;
+    private List<BestSeller> bestsellers;
+
+    private List<BestSeller> getBestsellers() {
+        return bestsellers;
+    }
 
     public Book(Long id, String title, String author, String genre,
                 Integer yearPublished, String isbn, double rating) {
