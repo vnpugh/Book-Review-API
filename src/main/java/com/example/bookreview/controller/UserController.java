@@ -15,26 +15,5 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class UserController {
 
-    private UserService userService;
-
-    @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
-    // http://localhost:9092/auth/users/register/
-    @PostMapping("/register/")
-    public User createUser(@RequestBody User userObject) {
-
-        return userService.createUser(userObject);
-    }
-
-
-    // http://localhost:9092/auth/users/register/
-    //need to create a user endpoint for logging in
-    @PostMapping("/login/")
-    public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
-        return userService.loginUser(loginRequest);
-    }
 
 }
