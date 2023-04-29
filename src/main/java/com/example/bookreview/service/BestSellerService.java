@@ -41,7 +41,7 @@ public class BestSellerService {
         }
         return bestSellers;
     }
-    public List<BestSeller> searchBestSellingBooks(String author, String title, String genre, Integer weeks,
+    public List<BestSeller> getBestSellingBooks(String author, String title, String genre, Integer weeks,
                  Double rating, Integer sales) {
         List<BestSeller> bestSellers = getAllBestSellers();
 
