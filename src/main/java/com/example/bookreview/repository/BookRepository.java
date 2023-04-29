@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
  /**
-  *custom methods used to query the database for specific information.
+  *custom methods used to query the database for book information.
   *ignore case added -> the search will ignore case sensitivity.
   */
  List<Book> findByUserId(Long id); //finds all books associated with a specific user ID.
