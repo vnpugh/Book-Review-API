@@ -14,6 +14,7 @@ public class BestSellerService {
     @Autowired
     private BestSellerRepository bestSellerRepository;
 
+
     @Autowired
     public void setBestSellerRepository(BestSellerRepository bestSellerRepository) {
         this.bestSellerRepository = bestSellerRepository;
@@ -23,6 +24,9 @@ public class BestSellerService {
         return bestSellerRepository.findAll();
     }
 
+    public static List<BestSeller> getBestSellers() {
+
+    }
 
 
 

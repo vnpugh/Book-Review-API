@@ -71,10 +71,10 @@ public class BookController {
         if (yearPublished != null) {
             books = books.stream().filter(book -> book.getYearPublished() == yearPublished).collect(Collectors.toList());
         }
-        if (isbn!= null) {
+        if (isbn != null) {
             books = books.stream().filter(book -> book.getIsbn() == isbn).collect(Collectors.toList());
         }
-        if (rating!= null) {
+        if (rating != null) {
             books = books.stream().filter(book -> book.getRating() == rating).collect(Collectors.toList());
         }
         return books;
