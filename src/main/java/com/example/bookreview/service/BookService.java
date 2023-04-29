@@ -15,7 +15,7 @@ import java.util.Optional;
 @Service
 public class BookService {
 
-private BookRepository bookRepository;
+    private BookRepository bookRepository;
 
 
     @Autowired
@@ -30,7 +30,7 @@ private BookRepository bookRepository;
                 getAuthentication().getPrincipal();
         return userDetails.getUser();
     }
-    
+
     public List<Book> getBooks() {//retrieves a list of books from a book repository based on the current logged-in user's ID.
         long userId = BookService.getCurrentLoggedInUser().getId();
         List<Book> books = bookRepository.findByUserId(userId);
@@ -51,31 +51,51 @@ private BookRepository bookRepository;
         return Optional.of(book);
     }
 
-    public Optional<Book> getBookByIsbn(Long isbn) {
-        Optional<Book> book = bookRepository.findByIsbn(isbn);
-        if (!book.isPresent()) {
-            throw new InformationNotFoundException("book not found with ISBN " + isbn);
+
+    /**
+     * creating a broad search method that allows the user to specify different parameters.
+     * get all books from bookRepository, then filter the list of books based on the search parameters.
+     *throws statement in the method signature for this method since it is not expected to throw any checked exceptions. However,
+     * you can choose to catch and handle any potential exceptions internally within the method if needed.
+     * includes a try-catch block to handle any potential exceptions thrown by the bookRepository methods:
+     * In this implementation, if any exceptions are thrown by the bookRepository methods, the catch block will catch them
+     * and re-throw a new exception with a custom message that includes the original exception message. This can help with
+     * debugging and identifying the root cause of any errors that occur.
+     * @param author
+     * @param title
+     * @param genre
+     * @param yearPublished
+     * @return books
+     */
+    public List<Book> searchBooks(String author, String title, String genre, Integer yearPublished, String isbn, Double rating) throws Exception {
+        List<Book> books = getBooks();
+
+        try {
+            if (author != null) {
+                books = bookRepository.findByAuthorIgnoreCase(author);
+            }
+
+            if (title != null) {
+                books = bookRepository.findByTitleIgnoreCase(title);
+            }
+
+            if (genre != null) {
+                books = bookRepository.findByGenreIgnoreCase(genre);
+            }
+
+            if (yearPublished != null) {
+                books = bookRepository.findByYearPublishedIgnoreCase(yearPublished);
+            }
+            if (rating != null) {
+                books = bookRepository.findByRatingIgnoreCase(rating);
+            }
+            if (isbn != null) {
+                books = bookRepository.findByIsbnIgnoreCase(isbn);
+            }
+        } catch (Exception e) {
+            throw new Exception("an error occurred while searching for books: " + e.getMessage());
         }
-        return book;
+
+        return books;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

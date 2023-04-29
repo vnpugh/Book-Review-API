@@ -10,29 +10,21 @@ import java.util.Optional;
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
 
-   //select book by title
-    Book findBookByTitle(String title);
 
-    //select book by genre
-    Book findBookByGenre(String genre);
+ List<Book> findByAuthorIgnoreCase(String author);
+ List<Book> findByTitleIgnoreCase(String title);
+ List<Book> findByGenreIgnoreCase(String genre);
+ List<Book> findByYearPublishedIgnoreCase(Integer yearPublished);
+ List<Book> findByRatingIgnoreCase(Double rating);
+ List<Book> findByIsbnIgnoreCase(String isbn);
 
-    //select book by author
-    Book findBookByAuthor(String author);
 
-    //select book by year published
-     Book findBookByYearPublished(Integer yearPublished);
-
-    //select book by isbn
-     //Book findBookByIsbn(String isbn);
-     Optional<Book> findByIsbn(Long id);
 
      List<Book> findByUserId(Long id);
      Book findByIdAndUserId(Long bookId, Long id);
 
-     //select book by a rating
-     Book findBookByRating(Double rating);
-
      //returns a list of bestselling books filtered by author
      List<Book> findBooksByBestsellers(String author);
+
 
 }
