@@ -17,17 +17,13 @@ import java.util.List;
 public class BookService {
 
 private BookRepository bookRepository;
-private BestSellerRepository bestSellerRepository;
+
 
     @Autowired
     public void setBookRepository(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
-    @Autowired
-    public void setBestSellerRepository(BestSellerRepository bestSellerRepository) {
-        this.bestSellerRepository = bestSellerRepository;
-    }
 
     //ADD User getCurrentLoggedInUser() Method later
     public static User getCurrentLoggedInUser() {
@@ -35,19 +31,15 @@ private BestSellerRepository bestSellerRepository;
                 getAuthentication().getPrincipal();
         return userDetails.getUser();
     }
-
-
-    public List<Book> getBooks() {
-        List<Book> books = bookRepository.findBookByIsbn(BookService.getCurrentLoggedInUser().getId());
+    
+    public List<Book> getBooksByIsbn() {//retrieves a list of books from a book repository based on the current logged-in user's ID.
+        long userId = BookService.getCurrentLoggedInUser().getId();
+        List<Book> books = bookRepository.findBookByIsbn(userId);
         if (books.isEmpty()) {
-            throw new InformationNotFoundException
-                    ("no books found for isbn " + BookService.getCurrentLoggedInUser().getId());
-        } else {
-            return books;
+            throw new InformationNotFoundException("no books found with isbn for user " + userId);
         }
+        return books;
     }
-
-
 
 
 }
