@@ -9,7 +9,10 @@ import java.util.List;
 
 @Repository
 public interface BestSellerRepository extends JpaRepository<BestSeller, Long> {
-
+    /**
+     *custom methods used to query the database for bestsellers information.
+     *ignore case added -> the search will ignore case sensitivity.
+     */
     List<BestSeller> findByUserId(Long id); //finds all books associated with a specific user ID.
     BestSeller findByIdAndUserId(Long bookId, Long id); //finds a specific book associated with a specific user ID.
     List<BestSeller> findByAuthorIgnoreCase(String author);//finds bestsellers written by a specific author.
