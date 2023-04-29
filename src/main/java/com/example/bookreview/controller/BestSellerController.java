@@ -48,7 +48,7 @@ public class BestSellerController {
             @RequestParam(required = false) Integer sales,
             @RequestParam(required = false) Double rating) {
 
-        List<BestSeller> bestSellers = bestSellerService.getBestSellers();
+        List<BestSeller> bestSellers = bestSellerService.getAllBestSellers();
 
         if (author != null) {
             bestSellers = bestSellers.stream().filter(bestseller -> bestseller.getAuthor().equalsIgnoreCase(author)).collect(Collectors.toList());

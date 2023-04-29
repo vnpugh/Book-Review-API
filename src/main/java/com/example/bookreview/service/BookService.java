@@ -1,6 +1,7 @@
 package com.example.bookreview.service;
 
 import com.example.bookreview.exception.InformationNotFoundException;
+import com.example.bookreview.model.BestSeller;
 import com.example.bookreview.model.Book;
 import com.example.bookreview.model.User;
 import com.example.bookreview.repository.BookRepository;
@@ -31,8 +32,8 @@ public class BookService {
      * @return
      */
     public static User getCurrentLoggedInUser() {
-        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().
-                getAuthentication().getPrincipal();
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
         return userDetails.getUser();
     }
 
