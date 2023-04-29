@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
@@ -23,7 +24,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     //select book by isbn
      //Book findBookByIsbn(String isbn);
-     List<Book> findByIsbn(Long id);
+     Optional<Book> findByIsbn(Long id);
 
      List<Book> findByUserId(Long id);
      Book findByIdAndUserId(Long bookId, Long id);

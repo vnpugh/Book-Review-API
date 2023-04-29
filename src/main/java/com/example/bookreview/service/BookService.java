@@ -1,10 +1,8 @@
 package com.example.bookreview.service;
 
 import com.example.bookreview.exception.InformationNotFoundException;
-import com.example.bookreview.model.BestSeller;
 import com.example.bookreview.model.Book;
 import com.example.bookreview.model.User;
-import com.example.bookreview.repository.BestSellerRepository;
 import com.example.bookreview.repository.BookRepository;
 import com.example.bookreview.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,23 +51,31 @@ private BookRepository bookRepository;
         return Optional.of(book);
     }
 
-
-
-
-
-
-
-
-
-
-    public List<Book> getBooksByIsbn() {//retrieves a list of books from a book repository based on the current logged-in user's ID.
-        long userId = BookService.getCurrentLoggedInUser().getId();
-        List<Book> books = bookRepository.findBookByIsbn(userId);
-        if (books.isEmpty()) {
-            throw new InformationNotFoundException("no books found with isbn for user " + userId);
+    public Optional<Book> getBookByIsbn(Long isbn) {
+        Optional<Book> book = bookRepository.findByIsbn(isbn);
+        if (!book.isPresent()) {
+            throw new InformationNotFoundException("book not found with ISBN " + isbn);
         }
-        return books;
+        return book;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

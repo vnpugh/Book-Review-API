@@ -34,7 +34,10 @@ public class BookController {
     public Optional<Book> getBookById(@PathVariable Long bookId) {
         return bookService.getBookById(bookId);
     }
-
+    @GetMapping(path = "/books/isbn/{isbn}")
+    public Optional<Book> getBookByIsbn(@PathVariable String isbn) {
+        return bookService.getBookByIsbn(isbn);
+    }
 
 
 }
