@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
@@ -32,6 +33,35 @@ private BookRepository bookRepository;
         return userDetails.getUser();
     }
     
+    public List<Book> getBooks() {//retrieves a list of books from a book repository based on the current logged-in user's ID.
+        long userId = BookService.getCurrentLoggedInUser().getId();
+        List<Book> books = bookRepository.findByUserId(userId);
+        if (books.isEmpty()) {
+            throw new InformationNotFoundException("no books found for user id " + userId);
+        }
+        return books;
+    }
+
+    public Optional<Book> getBook(Long bookId) {
+        Book book = bookRepository.findByIdAndUserId(bookId, BookService.getCurrentLoggedInUser()
+                .getId());
+        if (book == null) {
+            throw new InformationNotFoundException("book with id " + bookId + " is not found");
+        } else {
+            return Optional.of(book);
+        }
+        }
+
+
+
+
+
+
+
+
+
+
+
     public List<Book> getBooksByIsbn() {//retrieves a list of books from a book repository based on the current logged-in user's ID.
         long userId = BookService.getCurrentLoggedInUser().getId();
         List<Book> books = bookRepository.findBookByIsbn(userId);

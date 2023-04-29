@@ -23,13 +23,15 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     //select book by isbn
      //Book findBookByIsbn(String isbn);
-     List<Book> findBookByIsbn(Long id);
+     List<Book> findByIsbn(Long id);
+
+     List<Book> findByUserId(Long id);
+     Book findByIdAndUserId(Long bookId, Long id);
 
      //select book by a rating
      Book findBookByRating(Double rating);
 
      //returns a list of bestselling books filtered by author
      List<Book> findBooksByBestsellers(String author);
-
 
 }
