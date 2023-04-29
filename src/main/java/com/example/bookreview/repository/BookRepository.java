@@ -22,12 +22,14 @@ public interface BookRepository extends JpaRepository<Book, Long> {
      Book findBookByYearPublished(Integer yearPublished);
 
     //select book by isbn
-     Book findBookByIsbn(String isbn);
+     //Book findBookByIsbn(String isbn);
+     List<Book> findBookByIsbn(Long id);
 
      //select book by a rating
      Book findBookByRating(Double rating);
 
      //returns a list of bestselling books filtered by author
      List<Book> findBooksByBestsellers(String author);
+
 
 }

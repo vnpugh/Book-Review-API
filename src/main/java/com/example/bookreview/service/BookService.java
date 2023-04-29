@@ -6,6 +6,7 @@ import com.example.bookreview.model.Book;
 import com.example.bookreview.model.User;
 import com.example.bookreview.repository.BestSellerRepository;
 import com.example.bookreview.repository.BookRepository;
+import com.example.bookreview.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -45,15 +46,6 @@ private BestSellerRepository bestSellerRepository;
             return books;
         }
     }
-
-
-
-
-
-
-
-
-
 
 
 
