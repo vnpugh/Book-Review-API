@@ -87,7 +87,7 @@ public class BookService {
         List<Book> books = getBooks();
 
         try {
-            if (author != null) {
+            if (author != null) {   //ignore case added -> the search will ignore case sensitivity.
                 books = bookRepository.findByAuthorIgnoreCase(author);
             }
 
