@@ -1,7 +1,9 @@
 package com.example.bookreview.controller;
 
 import com.example.bookreview.model.Book;
+import com.example.bookreview.model.Review;
 import com.example.bookreview.service.BookService;
+import com.example.bookreview.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -21,6 +25,9 @@ import java.util.stream.Collectors;
 @RequestMapping(path = "/api") // http://localhost:9092/api/
 public class BookController {
     private BookService bookService;
+
+    @Autowired
+    private ReviewService reviewService;
 
     @Autowired//going to inject BookService at runtime by the Spring
     public void setBookService(BookService bookService) {
@@ -47,5 +54,17 @@ public class BookController {
 
         return books;
     }
+
+    @GetMapping(path = "/books/{bookId}/reviews") //http://localhost:9092/api/books/{bookId}/reviews/
+    public Map<String, Object> getBookReviews(@PathVariable Long bookId) {
+        List<Review> reviews = reviewService.getReviewsByBookId(bookId);
+        double overallRating = reviews.stream().mapToDouble(Review::getRating).average().orElse(0);
+        Map<String, Object> response = new HashMap<>();
+        response.put("reviews", reviews);
+        response.put("overallRating", overallRating);
+        return response;
+    }
+
+
 }
 
