@@ -1,7 +1,9 @@
 package com.example.bookreview.security;
 
 import com.example.bookreview.model.User;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -54,7 +56,6 @@ public class MyUserDetails implements UserDetails {
     public User getUser() {
         return user; //grabs the credentials & returns the user object
     }
-
 
 }
 

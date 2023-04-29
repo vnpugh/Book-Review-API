@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  *separating the business logic -> BookService to perform book operations.
  */
 @RestController
-@RequestMapping(path = "/api") // http://localhost:9092/api
+@RequestMapping(path = "/api") // http://localhost:9092/api/
 public class BookController {
     private BookService bookService;
 
@@ -26,19 +26,30 @@ public class BookController {
     public void setBookService(BookService bookService) {
         this.bookService = bookService;
     }
-   //@GetMapping(path = "/books/") // http://localhost:9092/api/books/
-   // public List<Book> getBooks() {//retrieve a list of books
-     //   return bookService.getBooks();
-   // }
 
+    //http://localhost:9092/api/books/{bookId}/
     @GetMapping(path = "/books/{bookId}") //retrieve the book with the given bookId
     public Optional<Book> getBookById(@PathVariable Long bookId) {
 
         return bookService.getBookById(bookId);
     }
 
-    @GetMapping(path = "/books/search") //retrieves books based on author, title, genre, or year published
-    public List<Book> searchBooks(//allows the user to specify search parameters
+    /**
+     *easier for the user to search for books by specifying parameters.
+     *set required parameters to false -> not mandatory.
+     *if a parameter is not provided, the value will be null.
+     *using Stream to filter the list of books based on the user's search parameters.
+     *this implementation is efficient for a small dataset
+     * @param author
+     * @param title
+     * @param genre
+     * @param yearPublished
+     * @param isbn
+     * @param rating
+     * @return books
+     */
+    @GetMapping(path = "/books/search")//http://localhost:9092/api/books/search/
+    public List<Book> searchBooks(
             @RequestParam(required = false) String author,
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String genre,
@@ -48,7 +59,6 @@ public class BookController {
 
             List<Book> books = bookService.getBooks();
 
-        //Using Stream to filter the list based on the search parameters:
         if (author != null) {
             books = books.stream().filter(book -> book.getAuthor().equalsIgnoreCase(author)).collect(Collectors.toList());
         }
