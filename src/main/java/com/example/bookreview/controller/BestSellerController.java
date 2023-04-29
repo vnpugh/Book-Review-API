@@ -1,6 +1,7 @@
 package com.example.bookreview.controller;
 
 import com.example.bookreview.model.BestSeller;
+import com.example.bookreview.model.Book;
 import com.example.bookreview.service.BestSellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,23 +25,24 @@ public class BestSellerController {
     }
 
     @GetMapping(path = "/bestsellers/") // http://localhost:9092/api/bestsellers/
-    public List<BestSeller> getBestSellers() { //retrieves a list of bestsellers
+    public List<BestSeller> getBestSellers() { //retrieves a list of all bestsellers
         return bestSellerService.getAllBestSellers();
     }
 
+
     /**
-     *search for bestsellers by specifying parameters.
+     *retrieves a filtered list with optional query parameters author, title,
+      genre, weeks, sales, and rating.
      * @param author
      * @param title
      * @param genre
      * @param weeks
      * @param sales
      * @param rating
-     * @return bestsellers
+     * @return
      */
-
-    @GetMapping(path = "/bestsellers/search")//http://localhost:9092/api/bestselling/search/
-    public List<BestSeller> searchBestSellingBooks(
+    @GetMapping(path = "/bestsellers/search")//http://localhost:9092/api/bestsellers/search/
+    public List<BestSeller> searchBestSellers(
             @RequestParam(required = false) String author,
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String genre,
@@ -48,31 +50,11 @@ public class BestSellerController {
             @RequestParam(required = false) Integer sales,
             @RequestParam(required = false) Double rating) {
 
-        List<BestSeller> bestSellers = bestSellerService.getAllBestSellers();
-
-        if (author != null) {
-            bestSellers = bestSellers.stream().filter(bestseller -> bestseller.getAuthor().equalsIgnoreCase(author)).collect(Collectors.toList());
-        }
-        if (title != null) {
-            bestSellers = bestSellers.stream().filter(bestseller -> bestseller.getTitle().equalsIgnoreCase(title)).collect(Collectors.toList());
-        }
-        if (genre != null) {
-            bestSellers = bestSellers.stream().filter(bestseller -> bestseller.getGenre().equalsIgnoreCase(genre)).collect(Collectors.toList());
-        }
-        if (weeks != null) {
-            bestSellers = bestSellers.stream().filter(bestseller -> bestseller.getWeeks().equals(weeks))
-                    .collect(Collectors.toList());
-        }
-        if (sales != null) {
-            bestSellers = bestSellers.stream().filter(bestseller -> bestseller.getSales().equals(sales))
-                    .collect(Collectors.toList());
-        }
-        if (rating != null) {
-            bestSellers = bestSellers.stream().filter(bestseller -> bestseller.getRating() == rating)
-                    .collect(Collectors.toList());
-        }
-        return bestSellers;
+        return bestSellerService.searchBestSellers(author, title, genre, weeks, sales, rating);
     }
+
+
+
 }
 
 

@@ -30,8 +30,8 @@ public class BestSellerService {
     }
 
     /**
-     *using BestSellerRepository to find all bestselling books associated with the user id.
-     *@return bestsellers
+     * using BestSellerRepository to find all bestselling books associated with the user id.
+     * @return bestsellers
      */
     public List<BestSeller> getAllBestSellers() { //retrieves all bestselling books associated with the user id.
         long userId = BestSellerService.getCurrentLoggedInUser().getId();
@@ -41,38 +41,30 @@ public class BestSellerService {
         }
         return bestSellers;
     }
-    public List<BestSeller> getBestSellingBooks(String author, String title, String genre, Integer weeks,
-                 Double rating, Integer sales) {
-        List<BestSeller> bestSellers = getAllBestSellers();
 
-        try {
-            if (author != null) {   //ignore case added -> the search will ignore case sensitivity.
-                bestSellers = bestSellerRepository.findByAuthorIgnoreCase(author);
-            }
 
-            if (title != null) {
-                bestSellers = bestSellerRepository.findByTitleIgnoreCase(title);
-            }
+    public List<BestSeller> searchBestSellers(String author, String title, String genre, Integer weeks, Integer sales, Double rating) {
 
-            if (genre != null) {
-                bestSellers = bestSellerRepository.findByGenreIgnoreCase(genre);
-            }
+        List<BestSeller> bestSellers = bestSellerRepository.findAll();
 
-            if (weeks != null) {
-                bestSellers = bestSellerRepository.findByWeeks(weeks);
-            }
-
-            if (rating != null) {
-                bestSellers = bestSellerRepository.findByRating(rating);
-            }
-
-            if (sales != null) {
-                bestSellers = bestSellerRepository.findBySales(sales);
-            }
-        } catch (DataAccessException e) {
-            throw e; // just rethrow the original exception
+        if (author != null) {
+            bestSellers = bestSellerRepository.findByAuthorIgnoreCase(author);
         }
-
+        if (title != null) {
+            bestSellers = bestSellerRepository.findByTitleIgnoreCase(title);
+        }
+        if (genre != null) {
+            bestSellers = bestSellerRepository.findByGenreIgnoreCase(genre);
+        }
+        if (weeks != null) {
+            bestSellers = bestSellerRepository.findByWeeks(weeks);
+        }
+        if (sales != null) {
+            bestSellers = bestSellerRepository.findBySales(sales);
+        }
+        if (rating != null) {
+            bestSellers = bestSellerRepository.findByRating(rating);
+        }
         return bestSellers;
     }
 }

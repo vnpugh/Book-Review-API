@@ -1,6 +1,5 @@
 package com.example.bookreview.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import javax.persistence.*;
@@ -46,9 +45,6 @@ public class Book {
     @ManyToMany(mappedBy = "books")
     private List<BestSeller> bestsellers;
 
-    private List<BestSeller> getBestsellers() {
-        return bestsellers;
-    }
 
     public Book(Long id, String title, String author, String genre,
                 Integer yearPublished, String isbn, double rating) {
@@ -61,14 +57,6 @@ public class Book {
         this.rating = rating;
     }
     public Book() {
-    }
-
-    public List<Review> getReviewList() {
-        return reviewList;
-    }
-
-    public void setReviewList(List<Review> reviewList) {
-        this.reviewList = reviewList;
     }
 
     public Long getId() {
