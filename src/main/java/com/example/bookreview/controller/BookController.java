@@ -12,14 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Optional;
 
-@RestController //will handle HTTP requests -> separating the logic
+/**
+ *Spring MVC REST Controller class that will handle HTTP request.
+ *separating the business logic -> BookService to perform book operations.
+ */
+@RestController
 @RequestMapping(path = "/api") // http://localhost:9092/api
 public class BookController {
-    /**
-     *need to handle HTTP requests related to books.
-     *BookController uses BookService to perform operations related to books.
-     */
-
     private BookService bookService;
 
     @Autowired//going to inject BookService at runtime by the Spring
@@ -27,15 +26,16 @@ public class BookController {
         this.bookService = bookService;
     }
     @GetMapping(path = "/books/") // http://localhost:9092/api/books/
-    public List<Book> getBooks() {
+    public List<Book> getBooks() {//retrieve a list of books 
         return bookService.getBooks();
     }
-    @GetMapping(path = "/books/{bookId}")
+    @GetMapping(path = "/books/{bookId}") //retrieve the book with the given bookId
     public Optional<Book> getBookById(@PathVariable Long bookId) {
+
         return bookService.getBookById(bookId);
     }
-    @GetMapping(path = "/books/isbn/{isbn}")
-    public Optional<Book> getBookByIsbn(@PathVariable String isbn) {
+    @GetMapping(path = "/books/isbn/{isbn}") //retrieve the book with the given isbn
+    public Optional<Book> getBookByIsbn(@PathVariable Long isbn) {
         return bookService.getBookByIsbn(isbn);
     }
 
