@@ -42,16 +42,16 @@ private BookRepository bookRepository;
         return books;
     }
 
-    public Optional<Book> getBook(Long bookId) {
-        Book book = bookRepository.findByIdAndUserId(bookId, BookService.getCurrentLoggedInUser()
-                .getId());
+    //retrieves a book from a book repository based on a given book ID
+    //and the current logged-in user's ID.
+    public Optional<Book> getBookById(Long bookId) {
+        long userId = BookService.getCurrentLoggedInUser().getId();
+        Book book = bookRepository.findByIdAndUserId(bookId, userId);
         if (book == null) {
             throw new InformationNotFoundException("book with id " + bookId + " is not found");
-        } else {
-            return Optional.of(book);
         }
-        }
-
+        return Optional.of(book);
+    }
 
 
 

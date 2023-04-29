@@ -31,8 +31,8 @@ public class BookController {
         return bookService.getBooks();
     }
     @GetMapping(path = "/books/{bookId}")
-    public Optional<Book> getBook(@PathVariable Long bookId) {
-        return bookService.getBook(bookId);
+    public Optional<Book> getBookById(@PathVariable Long bookId) {
+        return bookService.getBookById(bookId);
     }
 
 
