@@ -19,9 +19,6 @@ public class UserProfile {
     @Column
     private String lastName;
 
-    @Column
-    private String profileDescription;
-
     @JsonIgnore
     @OneToOne(mappedBy = "userProfile")
     private User user;
@@ -29,12 +26,10 @@ public class UserProfile {
     public UserProfile() {
     }
 
-
-    public UserProfile(Long id, String firstName, String lastName, String profileDescription, User user) {
+    public UserProfile(Long id, String firstName, String lastName, User user) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.profileDescription = profileDescription;
         this.user = user;
     }
 
@@ -62,14 +57,6 @@ public class UserProfile {
         this.lastName = lastName;
     }
 
-    public String getProfileDescription() {
-        return profileDescription;
-    }
-
-    public void setProfileDescription(String profileDescription) {
-        this.profileDescription = profileDescription;
-    }
-
     public User getUser() {
         return user;
     }
@@ -78,16 +65,15 @@ public class UserProfile {
         this.user = user;
     }
 
+
     @Override
     public String toString() {
         return "UserProfile{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", profileDescription='" + profileDescription + '\'' +
                 ", user=" + user +
                 '}';
     }
-
 }
 

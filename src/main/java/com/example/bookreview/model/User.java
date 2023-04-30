@@ -1,6 +1,10 @@
 package com.example.bookreview.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.mapping.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,10 +14,11 @@ public class User {
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
     private String userName;
-
     @Column(unique = true)
     private String emailAddress;
+
     @Column
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
@@ -22,15 +27,24 @@ public class User {
     @JoinColumn(name = "profile_id", referencedColumnName = "id") //adding a FK
     private UserProfile userProfile;
 
+
+    @ManyToMany
+    @JoinTable(
+            name = "reviews",
+            joinColumns = @JoinColumn(name = "userName"),
+            inverseJoinColumns = @JoinColumn(name = "review_id"))
+
+    private List<Review> reviewList;
+
     public User() {
     }
 
-    public User(Long id, String userName, String emailAddress, String password, UserProfile userProfile) {
+    public User(Long id, String userName, String emailAddress, String password) {
         this.id = id;
         this.userName = userName;
         this.emailAddress = emailAddress;
         this.password = password;
-        this.userProfile = userProfile;
+
     }
 
     public Long getId() {
@@ -65,14 +79,6 @@ public class User {
         this.password = password;
     }
 
-    public UserProfile getUserProfile() {
-        return userProfile;
-    }
-
-    public void setUserProfile(UserProfile userProfile) {
-        this.userProfile = userProfile;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -81,6 +87,7 @@ public class User {
                 ", emailAddress='" + emailAddress + '\'' +
                 ", password='" + password + '\'' +
                 ", userProfile=" + userProfile +
+                ", reviewList=" + reviewList +
                 '}';
     }
 

@@ -31,6 +31,10 @@ public class UserController {
         return userService.createUser(userObject);
     }
 
+  //  public User createUser(@RequestBody RegisterRequest registerRequest) {
+        //return userService.createUser(registerRequest);
+    //}
+
 
     //login account and create a book review
     @PostMapping("/login")
