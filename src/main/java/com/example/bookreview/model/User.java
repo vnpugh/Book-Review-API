@@ -6,6 +6,8 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.mapping.List;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")//always make sure it is with a "s" w/Postgres
@@ -23,7 +25,7 @@ public class User {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL)//pull the user and the profile as well
+    @OneToOne(cascade = CascadeType.ALL)//pull the user and the profile as well //one to one relationship with user profile
     @JoinColumn(name = "profile_id", referencedColumnName = "id") //adding a FK
     private UserProfile userProfile;
 
@@ -31,10 +33,11 @@ public class User {
     @ManyToMany
     @JoinTable(
             name = "reviews",
-            joinColumns = @JoinColumn(name = "userName"),
+            joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "review_id"))
+    private Set<Review> reviewList = new HashSet<>(); //Using a Set ensures that each review is unique for each user.
 
-    private List<Review> reviewList;
+
 
     public User() {
     }
@@ -77,6 +80,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<Review> getReviewList() {
+        return reviewList;
+    }
+
+    public void setReviewList(Set<Review> reviewList) {
+        this.reviewList = reviewList;
     }
 
     @Override
