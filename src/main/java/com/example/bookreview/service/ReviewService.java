@@ -1,22 +1,19 @@
 package com.example.bookreview.service;
 
 
-import com.example.bookreview.exception.InformationNotFoundException;
+import com.example.bookreview.exception.*;
+import com.example.bookreview.model.Book;
 import com.example.bookreview.model.Review;
 import com.example.bookreview.model.User;
 import com.example.bookreview.repository.ReviewRepository;
 import com.example.bookreview.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
+import java.util.Optional;
 
 @Service
 public class ReviewService {
@@ -57,8 +54,45 @@ public class ReviewService {
     }
 
 
-
-
+    public Review createBookReview(Long bookId, Review reviewObject, BookService bookService) throws UserNotLoggedInException,
+            FailedToSaveReviewException, BookNotFoundException {
+        if ((reviewObject.getUsername() == null) ||
+                reviewObject.getUsername().isEmpty() ||
+                (reviewObject.getTitle() == null) ||
+                reviewObject.getTitle().isEmpty() ||
+                (reviewObject.getAuthor() == null) ||
+                reviewObject.getAuthor().isEmpty() ||
+                (reviewObject.getGenre() == null) ||
+                reviewObject.getGenre().isEmpty() ||
+                (reviewObject.getRating() == null) ||
+                (reviewObject.getComment() == null) ||
+                reviewObject.getComment().isEmpty()) {
+            throw new MissingFieldsException("Missing required fields.");
+        }
+        if (reviewObject.getReviewDate() == null) {
+            reviewObject.setReviewDate(LocalDate.now());
+        }
+        //checks if user is logged in
+        User user = getCurrentLoggedInUser();
+        if (user == null) {
+            throw new UserNotLoggedInException("User is not logged in.");
+        }
+        Optional<Book> book = bookService.getBookById(bookId);
+        // check if the book exists before user creates the review
+        if (book.isPresent()) {
+            // add the book review and set the user who wrote the review
+            reviewObject.setUser(user);
+            book.get().addReview(reviewObject);
+            try {
+                bookService.saveBook(book.get());
+            } catch (Exception e) {
+                throw new FailedToSaveReviewException("Failed to save book review.");
+            }
+            return reviewObject; // the review has been added successfully
+        } else {
+            throw new BookNotFoundException("Book not found.");
+        }
+    }
 
 
 

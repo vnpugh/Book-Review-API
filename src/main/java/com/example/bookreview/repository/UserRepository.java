@@ -12,6 +12,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     //user can log in custom method
     User findUserByEmailAddress(String emailAddress);
+    User findUserByUserName(String username);
 
 
 }
