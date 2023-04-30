@@ -11,17 +11,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.example.bookreview.service.ReviewService.reviewRepository;
-
 
 @Service
 public class BookService {
+
+
+    @Autowired
     private BookRepository bookRepository;
+    @Autowired
+    private ReviewRepository reviewRepository;
 
 
 
@@ -55,29 +59,14 @@ public class BookService {
      */
     public List<Book> getBooks() {
         long userId = BookService.getCurrentLoggedInUser().getId();
-        List<Book> books = bookRepository.findByUserId(userId);
+        List<Book> books = Collections.singletonList(bookRepository.findByIdAndUserId(userId));
         if (books.isEmpty()) {
             throw new InformationNotFoundException("no books found for user id " + userId);
         }
         return books;
     }
 
-    /**
-     * retrieves a specific book from the book repository based on book id and the current logged-in user.
-     * the findByIdAndUserId() method is called in the bookRepository object.
-     * exception thrown if a specific book is not found for the user id.
-     *
-     * @param bookId
-     * @return Optional
-     */
-    public Optional<Book> getBookById(Long bookId) {
-        long userId = BookService.getCurrentLoggedInUser().getId();
-        Book book = bookRepository.findByIdAndUserId(bookId, userId);
-        if (book == null) {
-            throw new InformationNotFoundException("book with id " + bookId + " is not found");
-        }
-        return Optional.of(book);
-    }
+
 
 
     public List<Book> searchBooks(String author, String title, String genre, Integer yearPublished, String isbn, Integer sales, Integer weeks, Boolean bestSeller, Double rating) {
@@ -110,13 +99,10 @@ public class BookService {
     public List<Review> getBookReviews(Long bookId) { return reviewRepository.findByBookId(bookId);
     }
 
-
     public void saveBook(Book book) {
         bookRepository.save(book);
     }
 
-    public List<Book> getBestSellers() { return bookRepository.findByBestSeller(true);
-    }
 }
 
 

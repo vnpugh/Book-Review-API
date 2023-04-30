@@ -26,20 +26,17 @@ import java.util.stream.Collectors;
 public class BookController {
     private BookService bookService;
 
-    @Autowired
-    private ReviewService reviewService;
+
 
     @Autowired//going to inject BookService at runtime by the Spring
     public void setBookService(BookService bookService) {
         this.bookService = bookService;
     }
 
-    //http://localhost:9092/api/books/{bookId}/
-    @GetMapping(path = "/books/{bookId}") //retrieve the book with the given bookId
-    public Optional<Book> getBookById(@PathVariable Long bookId) {
 
-        return bookService.getBookById(bookId);
-    }
+
+
+
 
     @GetMapping(path = "/books/search")  //http://localhost:9092/api/books/search/
     public List<Book> searchBooks(
@@ -59,20 +56,6 @@ public class BookController {
         return books;
     }
 
-    @GetMapping(path = "/books/{bookId}/reviews") //http://localhost:9092/api/books/{bookId}/reviews/
-    public Map<String, Object> getBookReviews(@PathVariable Long bookId) {
-        List<Review> reviews = reviewService.getReviewsByBookId(bookId);
-        double overallRating = reviews.stream().mapToDouble(Review::getRating).average().orElse(0);
-        Map<String, Object> response = new HashMap<>();
-        response.put("reviews", reviews);
-        response.put("overallRating", overallRating);
-        return response;
-    }
-
- /**   @GetMapping(path = "/books/bestsellers") //http://localhost:9092/api/books/bestsellers/
-    public List<Book> getBestSellers() {
-           return bookService.getBestSellers();
-    }*/
 
 
 }
