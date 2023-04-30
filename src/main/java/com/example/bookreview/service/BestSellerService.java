@@ -2,13 +2,10 @@ package com.example.bookreview.service;
 
 
 import com.example.bookreview.exception.InformationNotFoundException;
-import com.example.bookreview.model.BestSeller;
-import com.example.bookreview.model.Book;
 import com.example.bookreview.model.User;
 import com.example.bookreview.repository.BestSellerRepository;
 import com.example.bookreview.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
