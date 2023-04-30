@@ -120,7 +120,10 @@ public class ReviewController {
     }
 
 
-
+    @PutMapping(path = "/reviews/{reviewId}/")
+    public Review updateReview(@PathVariable Long reviewId, @RequestBody Review reviewObject) {
+        return reviewService.updateReview(reviewId, reviewObject);
+    }
 
 }
 
