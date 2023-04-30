@@ -137,5 +137,10 @@ public class Review {
     }
 
     public void setUser(User user) {
-    }
+        this.user = user; //sets the user who writes the review
+   }
+
+
+
+
 }

@@ -97,5 +97,39 @@ public class ReviewService {
     }
 
 
+    public Review updateReview(Long reviewId, Review reviewObject) {
+        public Review updateReview(Long reviewId, Review reviewObject) throws UserNotLoggedInException,
+                UnauthorizedUserException {
+            // Check if user is logged in
+            User user = getCurrentLoggedInUser();
+            if (user == null) {
+                throw new UserNotLoggedInException("User is not logged in.");
+            }
 
+            // Retrieve review from the repository
+            Optional<Review> optionalReview = reviewRepository.findById(reviewId);
+            if (optionalReview.isPresent()) {
+                Review review = optionalReview.get();
+
+                // Check if the logged in user is the author of the review
+                if (review.getUser().getId() != user.getId()) {
+                    throw new UnauthorizedUserException("User is not authorized to update this review.");
+                }
+
+                // Update the review
+                review.setTitle(reviewObject.getTitle());
+                review.setAuthor(reviewObject.getAuthor());
+                review.setGenre(reviewObject.getGenre());
+                review.setRating(reviewObject.getRating());
+                review.setComment(reviewObject.getComment());
+                review.setReviewDate(LocalDate.now());
+
+                return reviewRepository.save(review);
+            } else {
+                throw new ReviewNotFoundException("Review not found.");
+            }
+        }
+
+
+    }
 }
