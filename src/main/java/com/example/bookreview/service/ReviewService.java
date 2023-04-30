@@ -55,7 +55,7 @@ public class ReviewService {
     }
 
 
-    //public Review createBookReview(Long bookId, Review reviewObject, BookService bookService)
+
     public Review createBookReview(Long bookId, Review reviewObject, BookService bookService) throws UserNotLoggedInException,
             FailedToSaveReviewException, BookNotFoundException {
         if ((reviewObject.getUsername() == null) ||
@@ -97,9 +97,8 @@ public class ReviewService {
     }
 
 
-    public Review updateReview(Long reviewId, Review reviewObject) {
-        public Review updateReview(Long reviewId, Review reviewObject) throws UserNotLoggedInException,
-                UnauthorizedUserException {
+
+    public Review updateReview(Long reviewId, Review reviewObject) throws ReviewNotFoundException, UnauthorizedUserException, UserNotLoggedInException {
             // Check if user is logged in
             User user = getCurrentLoggedInUser();
             if (user == null) {
@@ -111,7 +110,7 @@ public class ReviewService {
             if (optionalReview.isPresent()) {
                 Review review = optionalReview.get();
 
-                // Check if the logged in user is the author of the review
+                // Check if the logged-in user is the author of the review
                 if (review.getUser().getId() != user.getId()) {
                     throw new UnauthorizedUserException("User is not authorized to update this review.");
                 }
@@ -132,4 +131,4 @@ public class ReviewService {
 
 
     }
-}
+

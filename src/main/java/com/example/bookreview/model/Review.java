@@ -122,6 +122,12 @@ public class Review {
         this.comment = comment;
     }
 
+    public User getUser() { return user; }
+
+    public void setUser(User user) {
+        this.user = user; //sets the user who writes the review
+    }
+
     @Override
     public String toString() {
         return "Review{" +
@@ -135,11 +141,6 @@ public class Review {
                 ", comment='" + comment + '\'' +
                 '}';
     }
-
-    public void setUser(User user) {
-        this.user = user; //sets the user who writes the review
-   }
-
 
 
 

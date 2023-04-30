@@ -6,7 +6,9 @@ import com.example.bookreview.model.Book;
 import com.example.bookreview.model.Review;
 import com.example.bookreview.model.User;
 import com.example.bookreview.service.BookService;
+import com.example.bookreview.service.ReviewNotFoundException;
 import com.example.bookreview.service.ReviewService;
+import com.example.bookreview.service.UnauthorizedUserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -131,7 +133,7 @@ public class ReviewController {
 
     @PutMapping(path = "/reviews/{reviewId}/")
     public Review updateReview(@PathVariable Long reviewId, @RequestBody Review reviewObject)
-            throws UserNotLoggedInException {
+            throws UserNotLoggedInException, ReviewNotFoundException, UnauthorizedUserException {
         User user = getCurrentLoggedInUser();
         if (user == null) {
             throw new UserNotLoggedInException("User is not logged in.");
