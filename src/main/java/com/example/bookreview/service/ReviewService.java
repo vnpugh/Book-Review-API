@@ -5,6 +5,7 @@ import com.example.bookreview.exception.*;
 import com.example.bookreview.model.Book;
 import com.example.bookreview.model.Review;
 import com.example.bookreview.model.User;
+import com.example.bookreview.repository.BookRepository;
 import com.example.bookreview.repository.ReviewRepository;
 import com.example.bookreview.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,9 @@ import java.util.Optional;
 
 @Service
 public class ReviewService {
-    private static ReviewRepository reviewRepository;
 
+
+    private static ReviewRepository reviewRepository;
 
 
     @Autowired //the component can use the ReviewRepository to perform database operations
@@ -44,6 +46,9 @@ public class ReviewService {
         return reviewRepository.findByReviewDate(reviewDate);
     }
 
+
+
+
     public List<Review> getReviewsByBookId(Long bookId) {return reviewRepository.findByBookId(bookId);}
 
     public List<Review> getReviewsByRating(double rating) {
@@ -56,7 +61,7 @@ public class ReviewService {
 
 
 
-    public Review createBookReview(Long bookId, Review reviewObject, BookService bookService) throws UserNotLoggedInException,
+    public Review createBookReview(Long bookId, Review reviewObject, BookRepository bookRepository) throws UserNotLoggedInException,
             FailedToSaveReviewException, BookNotFoundException {
         if ((reviewObject.getUsername() == null) ||
                 reviewObject.getUsername().isEmpty() ||
@@ -79,14 +84,14 @@ public class ReviewService {
         if (user == null) {
             throw new UserNotLoggedInException("User is not logged in to create book review.");
         }
-        Optional<Book> book = bookService.getBookById(bookId);
+        Optional<Book> book = bookRepository.getBookById(bookId);
         // check if the book exists before user creates the review
         if (book.isPresent()) {
             // add the book review and set the user who wrote the review
             reviewObject.setUser(user);
             book.get().addReview(reviewObject);
             try {
-                bookService.saveBook(book.get());
+                bookRepository.saveBook(book.get());
             } catch (Exception e) {
                 throw new FailedToSaveReviewException("Failed to save book review.");
             }
