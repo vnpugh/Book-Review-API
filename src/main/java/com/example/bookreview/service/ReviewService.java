@@ -69,7 +69,7 @@ public class ReviewService {
                 (reviewObject.getRating() == null) ||
                 (reviewObject.getComment() == null) ||
                 reviewObject.getComment().isEmpty()) {
-            throw new MissingFieldsException("Missing required fields.");
+            throw new MissingFieldsException("Missing the required fields to create a new book review.");
         }
         if (reviewObject.getReviewDate() == null) {
             reviewObject.setReviewDate(LocalDate.now());
@@ -77,7 +77,7 @@ public class ReviewService {
         //checks if user is logged in
         User user = getCurrentLoggedInUser();
         if (user == null) {
-            throw new UserNotLoggedInException("User is not logged in.");
+            throw new UserNotLoggedInException("User is not logged in to create book review.");
         }
         Optional<Book> book = bookService.getBookById(bookId);
         // check if the book exists before user creates the review
@@ -102,7 +102,7 @@ public class ReviewService {
             // Check if user is logged in
             User user = getCurrentLoggedInUser();
             if (user == null) {
-                throw new UserNotLoggedInException("User is not logged in.");
+                throw new UserNotLoggedInException("User is not logged in to update book review.");
             }
 
             // Retrieve review from the repository
@@ -112,7 +112,7 @@ public class ReviewService {
 
                 // Check if the logged-in user is the author of the review
                 if (review.getUser().getId() != user.getId()) {
-                    throw new UnauthorizedUserException("User is not authorized to update this review.");
+                    throw new UnauthorizedUserException("User is not authorized to update this book review.");
                 }
 
                 // Update the review
