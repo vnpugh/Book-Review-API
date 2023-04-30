@@ -21,7 +21,17 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-    @GetMapping("/rating/{rating}")  //http://localhost:9092/api/rating/{rating}/
+    @GetMapping("/reviews") //http://localhost:9092/api/reviews/
+    public List<Review> getAllReviews() { //retrieves all reviews
+        return reviewService.getAllReviews();
+    }
+
+    /**
+     *retrieves book reviews by rating
+     * @param rating
+     * @return
+     */
+    @GetMapping("/reviews/{rating}")  //http://localhost:9092/api/reviews/{rating}/
     public List<Review> getReviewsByRating(@PathVariable("rating") double rating) {
         return reviewService.getReviewsByRating(rating);
     }
