@@ -1,14 +1,14 @@
 package com.example.bookreview.controller;
 
+import com.example.bookreview.exception.InformationNotFoundException;
 import com.example.bookreview.model.Book;
 import com.example.bookreview.model.Review;
 import com.example.bookreview.service.BookService;
 import com.example.bookreview.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,10 +21,23 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-    @GetMapping("/reviews") //http://localhost:9092/api/reviews/
-    public List<Review> getAllReviews() { //retrieves all reviews
-        return reviewService.getAllReviews();
+    @GetMapping("/users/{userId}/reviews")
+    public List<Review> getReviewsByUser(@PathVariable Long userId) {
+        return reviewService.getReviewsByUser(userId);
     }
+
+    @GetMapping("/reviews/")//http://localhost:9092/api/reviews/reviewDate/
+    public List<Review> getReviewDate(@RequestParam("reviewDate")
+            LocalDate reviewDate){
+        List<Review> reviews = reviewService.getReviewsByReviewDate(reviewDate);
+        if (reviews.isEmpty()) {
+            throw new InformationNotFoundException("no reviews found for review date " + reviewDate);
+        }
+        return reviews;
+    }
+
+
+
 
     /**
      *retrieves book reviews by rating
@@ -35,6 +48,13 @@ public class ReviewController {
     public List<Review> getReviewsByRating(@PathVariable("rating") double rating) {
         return reviewService.getReviewsByRating(rating);
     }
+
+    @GetMapping("/reviews") //http://localhost:9092/api/reviews/
+    public List<Review> getAllReviews() { //retrieves all reviews
+        return reviewService.getAllReviews();
+    }
+
+
 
 
 

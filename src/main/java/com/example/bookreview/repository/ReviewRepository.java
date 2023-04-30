@@ -11,17 +11,10 @@ import java.util.List;
 @Repository //JpaRepo provides basic CRUD functionality
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
-    List<Review> findByUserId(long userId);
+    List<Review> findByUserId(Long userId);
     List<Review> findByBookId(Long bookId);
-    //retrieve a list of reviews that match a given rating
     List<Review> findByRating (Double rating);
 
-    //view a list of all book reviews
-    //List<Review> findAllBookReviews(Long book_id);
-
-    //reviews that match a specified review date and genre
-    Review findReviewsByReviewDateAndGenre(LocalDate reviewDate, String genre);
-
-
-
+    List<Review> findAllBookReviews();
+    List<Review> findByReviewDate(LocalDate reviewDate);
 }
