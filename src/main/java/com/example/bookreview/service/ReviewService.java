@@ -84,7 +84,7 @@ public class ReviewService {
         if (user == null) {
             throw new UserNotLoggedInException("User is not logged in to create book review.");
         }
-        Optional<Book> book = bookRepository.getBookById(bookId);
+        Optional<Book> book = bookRepository.findById(bookId);
         // check if the book exists before user creates the review
         if (book.isPresent()) {
             // add the book review and set the user who wrote the review
