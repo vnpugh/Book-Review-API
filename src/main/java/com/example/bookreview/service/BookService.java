@@ -103,6 +103,10 @@ public class BookService {
     public void saveBook(Book book) {
         bookRepository.save(book);
     }
+
+    public List<Book> getBestSellers() {
+        return bookRepository.findByBestSeller(true);
+    }
 }
 
 

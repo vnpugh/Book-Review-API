@@ -26,6 +26,12 @@ public class Book {
     private String isbn;
     @Column
     private double rating;
+    @Column
+    private Integer weeks;
+    @Column
+    private Integer sales;
+    @Column
+    private boolean isBestSeller;
 
 
     /**
@@ -39,18 +45,8 @@ public class Book {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Review> reviewList;
 
-    /**
-     *many-to-many relationship between the book class and the bestseller class.
-     *many books can be on the bestsellers list.
-     *relationship is mapped by the books field in the bestseller class.
-     */
-    @ManyToMany(mappedBy = "books")
-    private List<BestSeller> bestsellers;
-
-
-
-    public Book(Long id, String title, String author, String genre,
-                Integer yearPublished, String isbn, double rating) {
+    public Book(Long id, String title, String author, String genre, Integer yearPublished, String isbn,
+                double rating, Integer weeks, Integer sales, boolean isBestSeller, List<Review> reviewList) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -58,7 +54,22 @@ public class Book {
         this.yearPublished = yearPublished;
         this.isbn = isbn;
         this.rating = rating;
+        this.weeks = weeks;
+        this.sales = sales;
+        this.isBestSeller = isBestSeller;
+        this.reviewList = reviewList;
     }
+
+
+    /**
+     *many-to-many relationship between the book class and the bestseller class.
+     *many books can be on the bestsellers list.
+     *relationship is mapped by the books field in the bestseller class.
+
+    @ManyToMany(mappedBy = "books")
+    private List<BestSeller> bestsellers;*/
+
+
     public Book() { }
 
     public Long getId() {
@@ -117,8 +128,37 @@ public class Book {
         this.rating = rating;
     }
 
+    public Integer getWeeks() {
+        return weeks;
+    }
 
-    public void addReview(Review review) {this.reviewList.add(review);}
+    public void setWeeks(Integer weeks) {
+        this.weeks = weeks;
+    }
+
+    public Integer getSales() {
+        return sales;
+    }
+
+    public void setSales(Integer sales) {
+        this.sales = sales;
+    }
+
+    public boolean isBestSeller() {
+        return isBestSeller;
+    }
+
+    public void setBestSeller(boolean bestSeller) {
+        isBestSeller = bestSeller;
+    }
+
+    public List<Review> getReviewList() {
+        return reviewList;
+    }
+
+    public void setReviewList(List<Review> reviewList) {
+        this.reviewList = reviewList;
+    }
 
     @Override
     public String toString() {
@@ -130,10 +170,10 @@ public class Book {
                 ", yearPublished=" + yearPublished +
                 ", isbn='" + isbn + '\'' +
                 ", rating=" + rating +
+                ", weeks=" + weeks +
+                ", sales=" + sales +
+                ", isBestSeller=" + isBestSeller +
                 ", reviewList=" + reviewList +
-                ", bestsellers=" + bestsellers +
                 '}';
     }
-
-
 }

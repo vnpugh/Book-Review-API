@@ -65,6 +65,11 @@ public class BookController {
         return response;
     }
 
+    @GetMapping(path = "/books/bestsellers") //http://localhost:9092/api/books/bestsellers/
+    public List<Book> getBestSellers() {
+           return bookService.getBestSellers();
+    }
+
 
 }
 
