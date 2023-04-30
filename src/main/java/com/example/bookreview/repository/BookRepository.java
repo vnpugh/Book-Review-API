@@ -1,6 +1,7 @@
 package com.example.bookreview.repository;
 
 import com.example.bookreview.model.Book;
+import com.example.bookreview.model.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -19,6 +20,10 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
  Optional<Book> findById(Long bookId);
  List<Book> findByBestSeller(boolean b);
+
+ List<Review> findByBookId(Long bookId);
+
+
 
  /**
  List<BestSeller> findByUserId(Long id); //finds all books associated with a specific user ID.

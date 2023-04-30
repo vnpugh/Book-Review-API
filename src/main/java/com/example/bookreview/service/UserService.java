@@ -1,6 +1,8 @@
 package com.example.bookreview.service;
 
 import com.example.bookreview.exception.InformationExistException;
+import com.example.bookreview.exception.UserNotFoundException;
+import com.example.bookreview.exception.UserNotLoggedInException;
 import com.example.bookreview.model.User;
 import com.example.bookreview.model.UserProfile;
 import com.example.bookreview.model.request.LoginRequest;
@@ -69,5 +71,26 @@ public class UserService {
     }
 
 
+    public User updateUser(Long userId, User userObject) throws UserNotFoundException, UserNotLoggedInException {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found with id : " + userId));
+
+        // Check if the user is logged in
+        if (!isLoggedIn(user)) {
+            throw new UserNotLoggedInException("User not logged in.");
+        }
+
+        // Update the user
+        user.setUserName(userObject.getUserName());
+        user.setEmailAddress(userObject.getEmailAddress());
+        user.setPassword(userObject.getPassword());
+
+        return userRepository.save(user);
+    }
+
+    //check if user is logged in
+    private boolean isLoggedIn(User user) {
+        return user != null && user.isLoggedIn();
+    }
 
 }

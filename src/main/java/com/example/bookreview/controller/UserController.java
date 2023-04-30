@@ -1,16 +1,15 @@
 package com.example.bookreview.controller;
 
 
+import com.example.bookreview.exception.UserNotFoundException;
+import com.example.bookreview.exception.UserNotLoggedInException;
 import com.example.bookreview.model.User;
 import com.example.bookreview.model.request.LoginRequest;
 import com.example.bookreview.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
 
@@ -41,7 +40,11 @@ public class UserController {
     }
 
 
-
+    @PutMapping("/users/{userId}")
+    public User updateUser(@PathVariable Long userId, @RequestBody User userObject) throws UserNotFoundException,
+            UserNotLoggedInException {
+        return userService.updateUser(userId, userObject);
+    }
 
 
 

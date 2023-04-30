@@ -20,7 +20,7 @@ import java.util.Optional;
 @Service
 public class ReviewService {
 
-    private static ReviewRepository reviewRepository;
+    static ReviewRepository reviewRepository;
 
     private static BookRepository bookRepository;
 

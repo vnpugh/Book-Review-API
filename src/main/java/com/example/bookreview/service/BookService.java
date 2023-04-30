@@ -2,8 +2,10 @@ package com.example.bookreview.service;
 
 import com.example.bookreview.exception.InformationNotFoundException;
 import com.example.bookreview.model.Book;
+import com.example.bookreview.model.Review;
 import com.example.bookreview.model.User;
 import com.example.bookreview.repository.BookRepository;
+import com.example.bookreview.repository.ReviewRepository;
 import com.example.bookreview.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,9 +16,15 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.example.bookreview.service.ReviewService.reviewRepository;
+
+
 @Service
 public class BookService {
     private BookRepository bookRepository;
+
+
+
 
     @Autowired //the component can use the BookRepository to perform database operations
     public void setBookRepository(BookRepository bookRepository) {
@@ -98,12 +106,16 @@ public class BookService {
         return booksStream.collect(Collectors.toList());
     }
 
+    //get book reviews
+    public List<Review> getBookReviews(Long bookId) { return reviewRepository.findByBookId(bookId);
+    }
+
+
     public void saveBook(Book book) {
         bookRepository.save(book);
     }
 
-    public List<Book> getBestSellers() {
-        return bookRepository.findByBestSeller(true);
+    public List<Book> getBestSellers() { return bookRepository.findByBestSeller(true);
     }
 }
 

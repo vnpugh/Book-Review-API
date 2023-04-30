@@ -83,4 +83,8 @@ public class User {
                 ", userProfile=" + userProfile +
                 '}';
     }
+
+    public boolean isLoggedIn() {
+        return false;
+    }
 }
