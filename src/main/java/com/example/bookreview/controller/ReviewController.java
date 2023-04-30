@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -21,10 +21,9 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-    @GetMapping(path = "/reviews/{reviewId}/book") //http://localhost:9092/reviews/{reviewId}/book/
-    public Optional<Book> getBookByReviewId(@PathVariable Long reviewId) {
-        return reviewService.getBookByReviewID(reviewId)
-                .map(Review::getBook);
+    @GetMapping("/rating/{rating}")  //http://localhost:9092/api/rating/{rating}/
+    public List<Review> getReviewsByRating(@PathVariable("rating") double rating) {
+        return reviewService.getReviewsByRating(rating);
     }
 
 
