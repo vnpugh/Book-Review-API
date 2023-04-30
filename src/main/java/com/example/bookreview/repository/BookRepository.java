@@ -19,6 +19,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
  Book findByIdAndUserId(Long bookId); //finds a specific book associated with a specific user ID.
 
  Optional<Book> findById(Long bookId);
+
+ List<Book> findByUserId(long userId);
  //List<Book> findByBestSeller(boolean b);
 
 

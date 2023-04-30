@@ -8,6 +8,7 @@ import com.example.bookreview.repository.BookRepository;
 import com.example.bookreview.repository.ReviewRepository;
 import com.example.bookreview.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -22,18 +23,19 @@ import java.util.stream.Stream;
 public class BookService {
 
 
-    @Autowired
     private BookRepository bookRepository;
-    @Autowired
     private ReviewRepository reviewRepository;
 
-
-
-
-    @Autowired //the component can use the BookRepository to perform database operations
+    @Autowired
     public void setBookRepository(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
+
+    @Autowired
+    public void setReviewRepository(ReviewRepository reviewRepository) {
+        this.reviewRepository = reviewRepository;
+    }
+
 
     /**
      * using SecurityContextHolder to return the user details.
@@ -50,20 +52,17 @@ public class BookService {
         return userDetails.getUser();
     }
 
-    /**
-     * retrieves all books associated with the currently logged-in user.
-     * then uses the bookRepository to find all books associated with the user by calling findByUserId().
-     * exception thrown if no books found for the user id.
-     *
-     * @return books
-     */
     public List<Book> getBooks() {
-        long userId = BookService.getCurrentLoggedInUser().getId();
-        List<Book> books = Collections.singletonList(bookRepository.findByIdAndUserId(userId));
+        long userId = getCurrentLoggedInUser().getId();
+        List<Book> books = bookRepository.findByUserId(userId);
         if (books.isEmpty()) {
             throw new InformationNotFoundException("no books found for user id " + userId);
         }
         return books;
+    }
+
+    public List<Book> getBooksBySales() {
+        return bookRepository.findAll(Sort.by(Sort.Direction.DESC, "sales"));
     }
 
 
@@ -96,13 +95,21 @@ public class BookService {
     }
 
     //get book reviews
-    public List<Review> getBookReviews(Long bookId) { return reviewRepository.findByBookId(bookId);
-    }
+    //public List<Review> getBookReviews(Long bookId) { return reviewRepository.findByBookId(bookId);
+    //}
 
     public void saveBook(Book book) {
         bookRepository.save(book);
     }
 
+
+    public Optional<Book> getBookById(Long bookId) {
+        Optional<Book> book = bookRepository.findById(bookId);
+        if (book.isEmpty()) {
+            throw new InformationNotFoundException("no book found for book id " + bookId);
+        }
+        return book;
+    }
 }
 
 
