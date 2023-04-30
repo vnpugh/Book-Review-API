@@ -21,6 +21,7 @@ import java.util.*;
  *Spring MVC REST Controller class that will handle HTTP request.
  *separating the business logic -> BookService to perform book operations.
  */
+/**
 @RestController
 @RequestMapping(path = "/api") // http://localhost:9092/api/
 public class BookController {
@@ -37,6 +38,7 @@ public class BookController {
         return ResponseEntity.ok(books);
     }
 
+    /**
     @GetMapping(path = "/books/search")
     public List<Book> searchBooks(
             @RequestParam(required = false) String author,
@@ -51,4 +53,4 @@ public class BookController {
 
         return bookService.searchBooks(author, title, genre, yearPublished, isbn, sales, weeks, bestSeller, rating);
     }
-}
+            */

@@ -24,17 +24,17 @@ public class BookService {
 
 
     private BookRepository bookRepository;
-    private ReviewRepository reviewRepository;
+    //private ReviewRepository reviewRepository;
 
     @Autowired
     public void setBookRepository(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
-    @Autowired
-    public void setReviewRepository(ReviewRepository reviewRepository) {
-        this.reviewRepository = reviewRepository;
-    }
+   // @Autowired
+    //public void setReviewRepository(ReviewRepository reviewRepository) {
+       // this.reviewRepository = reviewRepository;
+   // }
 
 
     /**
@@ -46,30 +46,32 @@ public class BookService {
      *
      * @return
      */
+
     public static User getCurrentLoggedInUser() {
         MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
         return userDetails.getUser();
     }
 
+    public List<Book> getBooksBySales() {
+        return bookRepository.findAll(Sort.by(Sort.Direction.DESC, "sales"));
+    } }
+
+/**
     public List<Book> getBooks() {
         long userId = getCurrentLoggedInUser().getId();
-        List<Book> books = bookRepository.findByUserId(userId);
+        List<Book> books = bookRepository.findByUser_Id(user_Id);
         if (books.isEmpty()) {
             throw new InformationNotFoundException("no books found for user id " + userId);
         }
         return books;
-    }
-
-    public List<Book> getBooksBySales() {
-        return bookRepository.findAll(Sort.by(Sort.Direction.DESC, "sales"));
-    }
+    }*/
 
 
-
+/**
 
     public List<Book> searchBooks(String author, String title, String genre, Integer yearPublished, String isbn, Integer sales, Integer weeks, Boolean bestSeller, Double rating) {
-        Stream<Book> booksStream = getBooks().stream();
+        Stream<List<Book>> booksStream = getBooks().stream();
 
         if (author != null) {
             booksStream = booksStream.filter(book -> book.getAuthor().equalsIgnoreCase(author));
@@ -94,6 +96,11 @@ public class BookService {
         return booksStream.collect(Collectors.toList());
     }
 
+    private Optional<List<Book>> getBooks() {
+        return Optional.of(bookRepository.findAll());
+    }
+
+
     //get book reviews
     //public List<Review> getBookReviews(Long bookId) { return reviewRepository.findByBookId(bookId);
     //}
@@ -112,5 +119,5 @@ public class BookService {
     }
 }
 
-
+*/
 

@@ -17,7 +17,7 @@ import java.util.Optional;
 
 import static com.example.bookreview.service.BookService.getCurrentLoggedInUser;
 
-
+/**
 @RestController
 @RequestMapping(path = "/api")
 public class ReviewController {
@@ -26,6 +26,9 @@ public class ReviewController {
      *to get the createBookReview method to work, I needed to inject (Autowire)
      ReviewService and BookService.
      */
+
+
+    /**
     @Autowired
     private ReviewService reviewService;
     @Autowired
@@ -61,6 +64,7 @@ public class ReviewController {
      * @param rating
      * @return
      */
+    /**
     @GetMapping("/reviews/{rating}")  //http://localhost:9092/api/reviews/{rating}/
     public List<Review> getReviewsByRating(@PathVariable("rating") double rating) {
         return reviewService.getReviewsByRating(rating);
@@ -112,7 +116,7 @@ public class ReviewController {
             return ResponseEntity.notFound().build(); //404 Not Found
         }
     }
-
+/**
 
     @PutMapping(path = "/reviews/{reviewId}/")
     public Review updateReview(@PathVariable Long reviewId, @RequestBody Review reviewObject)
@@ -142,7 +146,6 @@ public class ReviewController {
 
 
 
-
 }
-
+*/
 
