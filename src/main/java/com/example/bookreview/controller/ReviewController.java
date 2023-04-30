@@ -1,6 +1,7 @@
 package com.example.bookreview.controller;
 
 import com.example.bookreview.exception.InformationNotFoundException;
+import com.example.bookreview.exception.UserNotLoggedInException;
 import com.example.bookreview.model.Book;
 import com.example.bookreview.model.Review;
 import com.example.bookreview.model.User;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+
+import static com.example.bookreview.service.BookService.getCurrentLoggedInUser;
 
 
 @RestController
@@ -120,10 +123,22 @@ public class ReviewController {
     }
 
 
+    /**
     @PutMapping(path = "/reviews/{reviewId}/")
     public Review updateReview(@PathVariable Long reviewId, @RequestBody Review reviewObject) {
         return reviewService.updateReview(reviewId, reviewObject);
+    } **/
+
+    @PutMapping(path = "/reviews/{reviewId}/")
+    public Review updateReview(@PathVariable Long reviewId, @RequestBody Review reviewObject)
+            throws UserNotLoggedInException {
+        User user = getCurrentLoggedInUser();
+        if (user == null) {
+            throw new UserNotLoggedInException("User is not logged in.");
+        }
+        return reviewService.updateReview(reviewId, reviewObject);
     }
+
 
 }
 
