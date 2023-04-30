@@ -69,7 +69,8 @@ public class ReviewController {
      *The validation check (on the review object) for required fields checks for empty strings & null values.
      *The code checks if the user is logged in; if user is not logged in -> 401 Unauthorized error returned.
      *The code checks if the Optional returned by bookService.getBookById() is empty -> 404 Not Found error returned if it is.
-     *Added an exception to handle error on the server side that might be thrown when the review is saved -> 500 Internal Server Error returned.
+     *Added an exception to handle error on the server side that might be thrown when the review is saved -> 500 Internal
+      Server Error returned.
      *HTTP Status codes: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
      * @param bookId
      * @param reviewObject

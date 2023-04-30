@@ -23,11 +23,12 @@ public class ReviewService {
     private static ReviewRepository reviewRepository;
 
 
-
     @Autowired //the component can use the ReviewRepository to perform database operations
     public void setReviewRepository(ReviewRepository reviewRepository) {
         this.reviewRepository = reviewRepository;
     }
+
+
     public static User getCurrentLoggedInUser() {
         MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
@@ -54,4 +55,15 @@ public class ReviewService {
     public List<Review> getAllReviews() { //retrieves all reviews without any parameters
         return reviewRepository.findAllBookReviews();
     }
+
+
+
+
+
+
+
+
+
+
+
 }
