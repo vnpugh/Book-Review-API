@@ -14,6 +14,9 @@ public class UserProfile {
     private Long id;
 
     @Column
+    private Long profileId;
+
+    @Column
     private String firstName;
 
     @Column
@@ -26,19 +29,20 @@ public class UserProfile {
     public UserProfile() {
     }
 
-    public UserProfile(Long id, String firstName, String lastName, User user) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.user = user;
-    }
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(Long profileId) {
+        this.profileId = profileId;
     }
 
     public String getFirstName() {
@@ -65,11 +69,11 @@ public class UserProfile {
         this.user = user;
     }
 
-
     @Override
     public String toString() {
         return "UserProfile{" +
                 "id=" + id +
+                ", profileId=" + profileId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", user=" + user +

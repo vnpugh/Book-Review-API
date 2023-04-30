@@ -17,6 +17,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
+    private Long userId;
+    @Column
     private String userName;
     @Column(unique = true)
     private String emailAddress;
@@ -33,7 +35,7 @@ public class User {
     @ManyToMany
     @JoinTable(
             name = "reviews",
-            joinColumns = @JoinColumn(name = "user_id"),
+            joinColumns = @JoinColumn(name = "user"),
             inverseJoinColumns = @JoinColumn(name = "review_id"))
     private Set<Review> reviewList = new HashSet<>(); //Using a Set ensures that each review is unique for each user.
 
@@ -42,13 +44,16 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String userName, String emailAddress, String password) {
+    public User(Long id, Long userId, String userName, String emailAddress, String password, UserProfile userProfile, Set<Review> reviewList) {
         this.id = id;
+        this.userId = userId;
         this.userName = userName;
         this.emailAddress = emailAddress;
         this.password = password;
-
+        this.userProfile = userProfile;
+        this.reviewList = reviewList;
     }
+
 
     public Long getId() {
         return id;
@@ -56,6 +61,14 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {
@@ -82,6 +95,14 @@ public class User {
         this.password = password;
     }
 
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
+    }
+
     public Set<Review> getReviewList() {
         return reviewList;
     }
@@ -94,6 +115,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
+                ", userId=" + userId +
                 ", userName='" + userName + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
                 ", password='" + password + '\'' +
