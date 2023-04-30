@@ -1,8 +1,8 @@
 package com.example.bookreview.repository;
 
-import com.example.bookreview.model.Book;
-import com.example.bookreview.model.Review;
-import com.example.bookreview.model.User;
+
+//import com.example.bookreview.model.Review;
+//import com.example.bookreview.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Optional;
 
 
-@Repository
-public interface BookRepository extends JpaRepository<Book, Long> {
+//@Repository
+//public interface BookRepository extends JpaRepository<Book, Long> {
  //List<Book> findByUser_Id(user_Id);
  // List<Book> findByUser(User user);
 
@@ -33,4 +33,4 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
 
 
-}
+

@@ -21,6 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/**
 @Service
 public class UserService {
 
@@ -93,4 +94,4 @@ public class UserService {
         return user != null && user.isLoggedIn();
     }
 
-}
+}*/

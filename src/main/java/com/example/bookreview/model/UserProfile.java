@@ -3,7 +3,7 @@ package com.example.bookreview.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-
+/**
 @Entity
 @Table(name = "profiles")
 public class UserProfile {
@@ -12,9 +12,6 @@ public class UserProfile {
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column
-    private Long profileId;
 
     @Column
     private String firstName;
@@ -37,13 +34,6 @@ public class UserProfile {
         this.id = id;
     }
 
-    public Long getProfileId() {
-        return profileId;
-    }
-
-    public void setProfileId(Long profileId) {
-        this.profileId = profileId;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -73,11 +63,10 @@ public class UserProfile {
     public String toString() {
         return "UserProfile{" +
                 "id=" + id +
-                ", profileId=" + profileId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", user=" + user +
                 '}';
     }
 }
-
+*/
