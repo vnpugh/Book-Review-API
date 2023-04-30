@@ -22,7 +22,7 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override //need the user details after we find the user
     public UserDetails loadUserByUsername(String email)
             throws UsernameNotFoundException {
-        User user = userService.findUserByEmailAddress(email); //velvet@gmail.com
+        User user = userService.findUserByEmailAddress(email);
         return new MyUserDetails(user);
     }
 

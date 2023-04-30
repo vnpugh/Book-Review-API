@@ -1,6 +1,6 @@
 package com.example.bookreview.model;
 
-import jdk.internal.icu.text.UnicodeSet;
+
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import javax.persistence.*;
@@ -14,6 +14,9 @@ public class Book {
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column
+    private Long bookId;
     @Column
     private String title;
     @Column
@@ -30,8 +33,7 @@ public class Book {
     private Integer weeks;
     @Column
     private Integer sales;
-    @Column
-    private boolean isBestSeller;
+
 
 
     /**
@@ -45,9 +47,10 @@ public class Book {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Review> reviewList;
 
-    public Book(Long id, String title, String author, String genre, Integer yearPublished, String isbn,
-                double rating, Integer weeks, Integer sales, boolean isBestSeller, List<Review> reviewList) {
+    public Book(Long id, Long bookId, String title, String author, String genre, Integer yearPublished,
+                String isbn, double rating, Integer weeks, Integer sales, List<Review> reviewList) {
         this.id = id;
+        this.bookId = bookId;
         this.title = title;
         this.author = author;
         this.genre = genre;
@@ -56,18 +59,8 @@ public class Book {
         this.rating = rating;
         this.weeks = weeks;
         this.sales = sales;
-        this.isBestSeller = isBestSeller;
         this.reviewList = reviewList;
     }
-
-
-    /**
-     *many-to-many relationship between the book class and the bestseller class.
-     *many books can be on the bestsellers list.
-     *relationship is mapped by the books field in the bestseller class.
-
-    @ManyToMany(mappedBy = "books")
-    private List<BestSeller> bestsellers;*/
 
 
     public Book() { }
@@ -78,6 +71,14 @@ public class Book {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(Long bookId) {
+        this.bookId = bookId;
     }
 
     public String getTitle() {
@@ -144,14 +145,6 @@ public class Book {
         this.sales = sales;
     }
 
-    public boolean isBestSeller() {
-        return isBestSeller;
-    }
-
-    public void setBestSeller(boolean bestSeller) {
-        isBestSeller = bestSeller;
-    }
-
     public List<Review> getReviewList() {
         return reviewList;
     }
@@ -160,10 +153,15 @@ public class Book {
         this.reviewList = reviewList;
     }
 
+    public void addReview(Review reviewObject) {
+        reviewList.add(reviewObject); //need to add the review to the list of reviews
+    }
+
     @Override
     public String toString() {
         return "Book{" +
                 "id=" + id +
+                ", bookId=" + bookId +
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", genre='" + genre + '\'' +
@@ -172,12 +170,7 @@ public class Book {
                 ", rating=" + rating +
                 ", weeks=" + weeks +
                 ", sales=" + sales +
-                ", isBestSeller=" + isBestSeller +
                 ", reviewList=" + reviewList +
                 '}';
-    }
-
-    public void addReview(Review reviewObject) {
-        reviewList.add(reviewObject); //need to add the review to the list of reviews
     }
 }
