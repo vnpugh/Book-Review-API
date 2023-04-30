@@ -36,9 +36,6 @@ public class ReviewController {
         return reviews;
     }
 
-
-
-
     /**
      *retrieves book reviews by rating
      * @param rating
@@ -52,6 +49,14 @@ public class ReviewController {
     @GetMapping("/reviews") //http://localhost:9092/api/reviews/
     public List<Review> getAllReviews() { //retrieves all reviews
         return reviewService.getAllReviews();
+    }
+
+    /**
+     *create a new review
+     */
+    @PostMapping(path = "/reviews/")// http://localhost:9092/api/reviews/
+    public Review createReview(@RequestBody Review reviewObject) {
+        return ReviewService.createReview(reviewObject);
     }
 
 

@@ -42,6 +42,7 @@ public class ReviewService {
 
 
 
+
     public List<Review> getReviewsByRating(double rating) {
         return reviewRepository.findByRating(rating);
     }
