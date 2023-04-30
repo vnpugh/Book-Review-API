@@ -215,16 +215,13 @@ public class ReviewService {
     }
 
 
-
-
-
-
-
-
-
-
-
-
+    public void deleteReviewByUser(Long reviewId) throws UserNotLoggedInException, ReviewNotFoundException {
+        User user = getCurrentLoggedInUser();
+        if (user == null) {
+            throw new UserNotLoggedInException("User is not logged in.");
+        }
+        reviewRepository.deleteByUserIdAndReviewId(user.getId(), reviewId);
+    }
 
 }
 

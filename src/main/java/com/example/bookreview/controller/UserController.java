@@ -28,14 +28,10 @@ public class UserController {
 
     // http://localhost:9092/auth/users/register/
     @PostMapping("/register/")
-    public User createUser(@RequestBody User userObject) { return userService.createUser(userObject);
+    public User createUser(@RequestBody User userObject) {
+        return userService.createUser(userObject);
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody User userObject) {
-        User registeredUser = userService.registerUser(userObject);
-        return ResponseEntity.ok(registeredUser);
-    }
 
     //login account and create a book review
     @PostMapping("/login")

@@ -2,17 +2,20 @@ package com.example.bookreview.service;
 
 import com.example.bookreview.exception.InformationExistException;
 import com.example.bookreview.model.User;
+import com.example.bookreview.model.UserProfile;
 import com.example.bookreview.model.request.LoginRequest;
 import com.example.bookreview.model.response.LoginResponse;
 import com.example.bookreview.repository.UserRepository;
 import com.example.bookreview.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.convert.PeriodUnit;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +27,8 @@ public class UserService {
     private JWTUtils jwtUtils;
     private AuthenticationManager authenticationManager;
     private MyUserDetails myUserDetails;
+
+    private UserProfile userProfile;
 
     @Autowired
     public UserService(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder,
@@ -62,4 +67,7 @@ public class UserService {
             return ResponseEntity.ok(new LoginResponse("Error : username or password is incorrect"));
         }
     }
+
+
+
 }

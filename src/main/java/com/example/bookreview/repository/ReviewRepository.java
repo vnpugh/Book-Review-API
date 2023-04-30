@@ -20,4 +20,6 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     List<Review> findAllBookReviews();
     List<Review> findByReviewDate(LocalDate reviewDate);
     void saveBook(Book book);
+
+    void deleteByUserIdAndReviewId(Long id, Long reviewId);
 }

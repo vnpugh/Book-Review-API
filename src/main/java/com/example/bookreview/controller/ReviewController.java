@@ -151,12 +151,6 @@ public class ReviewController {
     }
 
 
-    /**
-    @PutMapping(path = "/reviews/{reviewId}/")
-    public Review updateReview(@PathVariable Long reviewId, @RequestBody Review reviewObject) {
-        return reviewService.updateReview(reviewId, reviewObject);
-    } **/
-
     @PutMapping(path = "/reviews/{reviewId}/")
     public Review updateReview(@PathVariable Long reviewId, @RequestBody Review reviewObject)
             throws UserNotLoggedInException, ReviewNotFoundException, UnauthorizedUserException {
@@ -176,17 +170,16 @@ public class ReviewController {
 
     //user can delete a review posted by them
     @DeleteMapping(path = "/reviews/{reviewId}/")
-    public void deleteReview(@PathVariable Long reviewId) throws UserNotLoggedInException, ReviewNotFoundException {
+    public void deleteReviewByUser(@PathVariable Long reviewId) throws UserNotLoggedInException, ReviewNotFoundException {
         User user = getCurrentLoggedInUser();
         if (user == null) {
             throw new UserNotLoggedInException("User is not logged in.");
         }
-        try {
-            reviewService.deleteReview(reviewId);
-        } catch (ReviewNotFoundException e) {
-            throw new ReviewNotFoundException("Review not found for logged-in user.");
-        }
+        reviewService.deleteReviewByUser(reviewId);
     }
+
+
+
 
 
 

@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
-
+@Table(name = "users")//always make sure it is with a "s" w/Postgres
 public class User {
     @Id
     @Column
