@@ -7,6 +7,7 @@ import com.example.bookreview.model.User;
 import com.example.bookreview.service.BookService;
 import com.example.bookreview.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,44 +62,62 @@ public class ReviewController {
         return reviewService.getAllReviews();
     }
 
-    /**
-     *create a new review
+    /**API endpoint to create a book review**
+     *ResponseEntity -> wraps the response body to allow for more flexibility.
+     *The code first checks if any required fields in the review object are missing or empty.
+     *If any required fields are missing or empty -> return a bad request response (400 HTTP status code).
+     *The validation check (on the review object) for required fields checks for empty strings & null values.
+     *The code checks if the user is logged in; if user is not logged in -> 401 Unauthorized error returned.
+     *The code checks if the Optional returned by bookService.getBookById() is empty -> 404 Not Found error returned if it is.
+     *Added an exception to handle error on the server side that might be thrown when the review is saved -> 500 Internal Server Error returned.
+     *HTTP Status codes: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+     * @param bookId
+     * @param reviewObject
+     * @return
      */
-
     @PostMapping("/books/{bookId}/reviews")
     public ResponseEntity<Review> createBookReview(@PathVariable Long bookId, @RequestBody Review reviewObject) {
-        // Check if all required fields are provided by user
+        //check if the required fields are missing or empty.
         if (reviewObject.getUsername() == null ||
+                reviewObject.getUsername().isEmpty() ||
                 reviewObject.getTitle() == null ||
+                reviewObject.getTitle().isEmpty() ||
                 reviewObject.getAuthor() == null ||
+                reviewObject.getAuthor().isEmpty() ||
                 reviewObject.getGenre() == null ||
+                reviewObject.getGenre().isEmpty() ||
                 reviewObject.getRating() == null ||
-                reviewObject.getComment() == null) {
+                reviewObject.getComment() == null ||
+                reviewObject.getComment().isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
-
-        // Set the review date to the current date if not provided
+        //sets the review date to the current date if it's not entered by user
         if (reviewObject.getReviewDate() == null) {
             reviewObject.setReviewDate(LocalDate.now());
         }
-
-        // Get the current logged in user
+        //get the current logged in user
         User user = reviewService.getCurrentLoggedInUser();
-
-        // Retrieve the book by ID
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        //retrieve the book by ID
         Optional<Book> book = bookService.getBookById(bookId);
-
-        // Check if the book exists before adding the review
+        //check if the book exists before user creates the review
         if (book.isPresent()) {
-            // Add the review to the book and set the user who wrote the review
+            //add the book review and set the user who wrote the review
             reviewObject.setUser(user);
-            book.get().addReview(reviewObject); //add addReview in Book
-            bookService.saveBook(book.get()); //add saveBook in BookService
-            return ResponseEntity.ok(reviewObject);
+            book.get().addReview(reviewObject);
+            try {
+                bookService.saveBook(book.get());
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+            return ResponseEntity.ok(reviewObject); //the review has been added successfully (HTTP 200)
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.notFound().build(); //404 Not Found
         }
     }
+
 
 
 
