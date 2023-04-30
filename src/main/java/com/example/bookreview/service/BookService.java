@@ -100,11 +100,9 @@ public class BookService {
         return booksStream.collect(Collectors.toList());
     }
 
-
-
-
-
-
+    public void saveBook(Book book) {
+        bookRepository.save(book);
+    }
 }
 
 

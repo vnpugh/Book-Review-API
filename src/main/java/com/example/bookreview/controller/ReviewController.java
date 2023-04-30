@@ -1,14 +1,11 @@
 package com.example.bookreview.controller;
 
-import com.example.bookreview.exception.InformationNotFoundException;
-import com.example.bookreview.exception.UserNotLoggedInException;
+import com.example.bookreview.exception.*;
 import com.example.bookreview.model.Book;
 import com.example.bookreview.model.Review;
 import com.example.bookreview.model.User;
 import com.example.bookreview.service.BookService;
-import com.example.bookreview.exception.ReviewNotFoundException;
 import com.example.bookreview.service.ReviewService;
-import com.example.bookreview.exception.UnauthorizedUserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +21,14 @@ import static com.example.bookreview.service.BookService.getCurrentLoggedInUser;
 @RestController
 @RequestMapping(path = "/api")
 public class ReviewController {
+
+    /**
+     *to get the createBookReview method to work, I needed to inject (Autowire)
+     ReviewService and BookService.
+     */
+    @Autowired
     private ReviewService reviewService;
+    @Autowired
     private BookService bookService;
 
     @Autowired//going to inject ReviewService at runtime by the Spring
@@ -81,6 +85,28 @@ public class ReviewController {
      * @param reviewObject
      * @return
      */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @PostMapping("/books/{bookId}/reviews")
     public ResponseEntity<Review> createBookReview(@PathVariable Long bookId, @RequestBody Review reviewObject) {
         //check if the required fields are missing or empty.
@@ -140,6 +166,29 @@ public class ReviewController {
         }
         return reviewService.updateReview(reviewId, reviewObject);
     }
+
+
+    @PutMapping(path = "/users/{userId}/")
+    public User updateUser(@PathVariable Long userId, @RequestBody User userObject) throws UserNotFoundException,
+            UserNotLoggedInException {
+        return reviewService.updateUser(userId, userObject);
+    }
+
+    //user can delete a review posted by them
+    @DeleteMapping(path = "/reviews/{reviewId}/")
+    public void deleteReview(@PathVariable Long reviewId) throws UserNotLoggedInException, ReviewNotFoundException {
+        User user = getCurrentLoggedInUser();
+        if (user == null) {
+            throw new UserNotLoggedInException("User is not logged in.");
+        }
+        try {
+            reviewService.deleteReview(reviewId);
+        } catch (ReviewNotFoundException e) {
+            throw new ReviewNotFoundException("Review not found for logged-in user.");
+        }
+    }
+
+
 
 
 }
