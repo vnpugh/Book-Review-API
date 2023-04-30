@@ -20,6 +20,7 @@ public class ReviewService {
     private static ReviewRepository reviewRepository;
 
 
+
     @Autowired //the component can use the ReviewRepository to perform database operations
     public void setReviewRepository(ReviewRepository reviewRepository) {
         this.reviewRepository = reviewRepository;
@@ -43,7 +44,7 @@ public class ReviewService {
         return reviewRepository.findByReviewDate(reviewDate);
     }
 
-
+    public List<Review> getReviewsByBookId(Long bookId) {return reviewRepository.findByBookId(bookId);}
 
     public List<Review> getReviewsByRating(double rating) {
         return reviewRepository.findByRating(rating);
@@ -54,6 +55,7 @@ public class ReviewService {
     }
 
 
+    //public Review createBookReview(Long bookId, Review reviewObject, BookService bookService)
     public Review createBookReview(Long bookId, Review reviewObject, BookService bookService) throws UserNotLoggedInException,
             FailedToSaveReviewException, BookNotFoundException {
         if ((reviewObject.getUsername() == null) ||
@@ -93,10 +95,6 @@ public class ReviewService {
             throw new BookNotFoundException("Book not found.");
         }
     }
-
-
-
-
 
 
 
