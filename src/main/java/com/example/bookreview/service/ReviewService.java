@@ -37,10 +37,8 @@ public class ReviewService {
     public List<Review> getReviewsByBookId(Long bookId) {
         return reviewRepository.findByBookId(bookId);
     }
-
-
-
-
-
-
+    
+    public List<Review> getReviewsByRating(double rating) {
+        return reviewRepository.findByRating(rating);
+    }
 }
