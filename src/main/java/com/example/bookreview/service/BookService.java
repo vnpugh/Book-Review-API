@@ -1,13 +1,11 @@
 package com.example.bookreview.service;
 
 import com.example.bookreview.exception.InformationNotFoundException;
-import com.example.bookreview.model.BestSeller;
 import com.example.bookreview.model.Book;
 import com.example.bookreview.model.User;
 import com.example.bookreview.repository.BookRepository;
 import com.example.bookreview.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -74,7 +72,7 @@ public class BookService {
     }
 
 
-    public List<Book> searchBooks(String author, String title, String genre, Integer yearPublished, String isbn, Double rating) {
+    public List<Book> searchBooks(String author, String title, String genre, Integer yearPublished, String isbn, Integer sales, Integer weeks, Boolean bestSeller, Double rating) {
         Stream<Book> booksStream = getBooks().stream();
 
         if (author != null) {

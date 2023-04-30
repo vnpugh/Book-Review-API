@@ -176,4 +176,8 @@ public class Book {
                 ", reviewList=" + reviewList +
                 '}';
     }
+
+    public void addReview(Review reviewObject) {
+        reviewList.add(reviewObject); //need to add the review to the list of reviews
+    }
 }

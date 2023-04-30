@@ -138,7 +138,7 @@ public class ReviewController {
         if (book.isPresent()) {
             //add the book review and set the user who wrote the review
             reviewObject.setUser(user);
-            book.get().addReview(reviewObject);
+            book.get().addReview(reviewObject); //see Book model
             try {
                 bookService.saveBook(book.get());
             } catch (Exception e) {

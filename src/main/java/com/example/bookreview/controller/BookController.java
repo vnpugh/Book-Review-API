@@ -48,9 +48,13 @@ public class BookController {
             @RequestParam(required = false) String genre,
             @RequestParam(required = false) Integer yearPublished,
             @RequestParam(required = false) String isbn,
+            @RequestParam(required = false) Integer sales,
+            @RequestParam(required = false) Integer weeks,
+            @RequestParam(required = false) Boolean bestSeller,
             @RequestParam(required = false) Double rating) {
 
-        List<Book> books = bookService.searchBooks(author, title, genre, yearPublished, isbn, rating);
+        List<Book> books = bookService.searchBooks(author, title, genre, yearPublished, isbn,
+                sales, weeks, bestSeller, rating);
 
         return books;
     }
@@ -65,10 +69,10 @@ public class BookController {
         return response;
     }
 
-    @GetMapping(path = "/books/bestsellers") //http://localhost:9092/api/books/bestsellers/
+ /**   @GetMapping(path = "/books/bestsellers") //http://localhost:9092/api/books/bestsellers/
     public List<Book> getBestSellers() {
            return bookService.getBestSellers();
-    }
+    }*/
 
 
 }
