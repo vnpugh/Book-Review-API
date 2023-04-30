@@ -17,4 +17,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     List<Review> findAllBookReviews();
     List<Review> findByReviewDate(LocalDate reviewDate);
+
+
+
 }

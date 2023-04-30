@@ -7,15 +7,23 @@ import com.example.bookreview.model.User;
 import com.example.bookreview.repository.ReviewRepository;
 import com.example.bookreview.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class ReviewService {
-    private ReviewRepository reviewRepository;
+    private static ReviewRepository reviewRepository;
+
+
+
     @Autowired //the component can use the ReviewRepository to perform database operations
     public void setReviewRepository(ReviewRepository reviewRepository) {
         this.reviewRepository = reviewRepository;
@@ -39,10 +47,6 @@ public class ReviewService {
 
 
 
-
-
-
-
     public List<Review> getReviewsByRating(double rating) {
         return reviewRepository.findByRating(rating);
     }
@@ -50,5 +54,4 @@ public class ReviewService {
     public List<Review> getAllReviews() { //retrieves all reviews without any parameters
         return reviewRepository.findAllBookReviews();
     }
-
 }

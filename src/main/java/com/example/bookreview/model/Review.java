@@ -135,4 +135,7 @@ public class Review {
                 ", comment='" + comment + '\'' +
                 '}';
     }
+
+    public void setUser(User user) {
+    }
 }

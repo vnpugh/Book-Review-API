@@ -1,5 +1,6 @@
 package com.example.bookreview.model;
 
+import jdk.internal.icu.text.UnicodeSet;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public class Book {
     @Column
     private double rating;
 
+
     /**
      *one-to-many relationship between the book class and the review class.
      *one book can have many reviews associated with it -> book entity will have a list of reviews.
@@ -46,6 +48,7 @@ public class Book {
     private List<BestSeller> bestsellers;
 
 
+
     public Book(Long id, String title, String author, String genre,
                 Integer yearPublished, String isbn, double rating) {
         this.id = id;
@@ -56,8 +59,7 @@ public class Book {
         this.isbn = isbn;
         this.rating = rating;
     }
-    public Book() {
-    }
+    public Book() { }
 
     public Long getId() {
         return id;
@@ -115,6 +117,9 @@ public class Book {
         this.rating = rating;
     }
 
+
+    public void addReview(Review review) {this.reviewList.add(review);}
+
     @Override
     public String toString() {
         return "Book{" +
@@ -125,6 +130,8 @@ public class Book {
                 ", yearPublished=" + yearPublished +
                 ", isbn='" + isbn + '\'' +
                 ", rating=" + rating +
+                ", reviewList=" + reviewList +
+                ", bestsellers=" + bestsellers +
                 '}';
     }
 
