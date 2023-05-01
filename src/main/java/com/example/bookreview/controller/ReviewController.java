@@ -1,7 +1,6 @@
 package com.example.bookreview.controller;
 
 import com.example.bookreview.exception.*;
-import com.example.bookreview.model.Book;
 import com.example.bookreview.model.Review;
 import com.example.bookreview.model.User;
 import com.example.bookreview.repository.BookRepository;
@@ -14,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 import static com.example.bookreview.service.ReviewService.getCurrentLoggedInUser;
 
 
@@ -148,9 +146,6 @@ public class ReviewController {
     }
 
 
-
-
-    //user can delete a review posted by them
 
     /**
      * method to delete a book review by a user.

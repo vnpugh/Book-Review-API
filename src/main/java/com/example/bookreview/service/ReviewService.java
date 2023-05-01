@@ -3,12 +3,10 @@ package com.example.bookreview.service;
 import com.example.bookreview.exception.*;
 import com.example.bookreview.model.Review;
 import com.example.bookreview.model.User;
-import com.example.bookreview.repository.BookRepository;
 import com.example.bookreview.repository.ReviewRepository;
 import com.example.bookreview.repository.UserRepository;
 import com.example.bookreview.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
@@ -29,13 +27,34 @@ public class ReviewService {
         this.reviewRepository = reviewRepository;
     }
 
+    /**
+     * method to get the current logged-in user.
+     * MyUserDetails is a class that implements UserDetails interface.
+     * SecurityContextHolder is a class that provides access to the security context.
+     * SecurityContext is an interface that represents the security context.
+     * Authentication is an interface that represents the authentication object.
+     * getPrincipal() returns the current logged-in user.
+     */
 
     public static User getCurrentLoggedInUser() {
         MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
         return userDetails.getUser();
+
     }
+
+    /**
+     * method to get a list of reviews by logged-in users with specified ids.
+     * method checks for a null value for the userId parameter -> ensures that
+       the method won't try to execute a query with a null parameter.
+     * if null, thrown an IllegalArgumentException.
+     * @param userId
+     * @return
+     */
     public List<Review> getReviewsByUser(Long userId) {
+        if (userId == null) {
+            throw new IllegalArgumentException("userId cannot be null");
+        }
         List<Review> reviews = reviewRepository.findByUserId(userId);
         if (reviews.isEmpty()) {
             throw new InformationNotFoundException("no reviews found for user id " + userId);
@@ -43,16 +62,33 @@ public class ReviewService {
         return reviews;
     }
 
+
+    /**
+     * method to get a list of reviews by rating.
+     */
     public List<Review> getReviewsByRating(double rating) {
         return reviewRepository.findByRating(rating);
     }
 
+    /**
+     * method to handle the logic of creating a new review.
+     * method checks for a null value for the reviewObject parameter -> ensures that
+       the method won't try to execute a query with a null parameter.
+     * @throws ReviewNotFoundException
+     */
+    public Review getReviewById(Long reviewId) throws ReviewNotFoundException {
+        Optional<Review> optionalReview = reviewRepository.findById(reviewId);
+        if (optionalReview.isPresent()) {
+            return optionalReview.get();
+        } else {
+            throw new ReviewNotFoundException("Review not found.");
+        }
+    }
+
+
 
     /**
      * could not implement createBookReview method, but I created the POST Mapping in the ReviewController.
-     * @throws UserNotLoggedInException
-     * @throws FailedToSaveReviewException
-     * @throws MissingFieldsException
      */
     /**
     public Review createBookReview(Review reviewObject) throws UserNotLoggedInException,
@@ -84,14 +120,19 @@ public class ReviewService {
     } */
 
 
-
-
-
-    public Review updateReview(Long reviewId, Review reviewObject) throws ReviewNotFoundException, UnauthorizedUserException, UserNotLoggedInException {
+    /**
+     * method to handle the logic of updating a book review.
+     * method first checks if the user is logged in, then retrieves the review by ID from the repository.
+     * If the review is found, checks if the logged-in user is the author of the review.
+     * If the user is authorized, the review will be updated with the new data and saves it to the repository.
+     * If the review is not found, ReviewNotFoundException thrown.
+     */
+    public Review updateReview(Long reviewId, Review reviewObject) throws ReviewNotFoundException,
+            UnauthorizedUserException, UserNotLoggedInException {
         // Check if user is logged in
         User user = getCurrentLoggedInUser();
         if (user == null) {
-            throw new UserNotLoggedInException("User is not logged in to update book review.");
+            throw new UserNotLoggedInException("User is not logged in to update a review.");
         }
 
         // Retrieve review from the repository
@@ -109,7 +150,6 @@ public class ReviewService {
             review.setAuthor(reviewObject.getAuthor());
             review.setReviewText(reviewObject.getReviewText());
             review.setRating(reviewObject.getRating());
-            review.setReviewText(reviewObject.getReviewText());
             review.setReviewDate(LocalDate.now());
 
             return reviewRepository.save(review);
@@ -118,27 +158,15 @@ public class ReviewService {
         }
     }
 
-//update user account information
 
-    public User updateUser(Long userId, User userObject) throws UserNotLoggedInException, UserNotFoundException {
-        User user = getCurrentLoggedInUser();
-        if (user == null) {
-            throw new UserNotLoggedInException("User is not logged in to update account profile.");
-        }
-        Optional<User> optionalUser = userRepository.findById(userId);
-        if (optionalUser.isPresent()) {
-            User userToUpdate = optionalUser.get();
-            userToUpdate.setUserName(userObject.getUserName());
-            userToUpdate.setEmailAddress(userObject.getEmailAddress());
-            userToUpdate.setPassword(userObject.getPassword());
-            return userRepository.save(userToUpdate);
-        } else {
-            throw new UserNotFoundException("User not found.");
-        }
-    }
-
-
-
+    /**
+     * method to handle the logic of deleting a book review.
+     * method first checks if the user is logged in, then retrieves the review by ID from the repository.
+     * If the review is found, checks if the logged-in user is the author of the review.
+     * If the user is authorized, the review will be deleted from the repository.
+     * If the review is not found, ReviewNotFoundException thrown.
+     * If the user is not authorized, UnauthorizedUserException thrown.
+     */
     public void deleteReviewByUser(Long reviewId) throws UserNotLoggedInException, ReviewNotFoundException {
         User user = getCurrentLoggedInUser();
         if (user == null) {
@@ -154,14 +182,7 @@ public class ReviewService {
         reviewRepository.delete(review);
     }
 
-    public Review getReviewById(Long reviewId) throws ReviewNotFoundException {
-Optional<Review> optionalReview = reviewRepository.findById(reviewId);
-        if (optionalReview.isPresent()) {
-            return optionalReview.get();
-        } else {
-            throw new ReviewNotFoundException("Review not found.");
-        }
-    }
+
 }
 
 
