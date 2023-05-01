@@ -1,6 +1,7 @@
 package com.example.bookreview.security;
 
-/**
+
+import com.example.bookreview.model.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +17,7 @@ public class MyUserDetails implements UserDetails {
     public MyUserDetails(User user) {
         this.user = user;
     }
-/**
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return new HashSet<>();
@@ -58,4 +59,4 @@ public class MyUserDetails implements UserDetails {
     }
 
 }
-*/
+

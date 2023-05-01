@@ -10,18 +10,16 @@ import com.example.bookreview.model.response.LoginResponse;
 import com.example.bookreview.repository.UserRepository;
 import com.example.bookreview.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.convert.PeriodUnit;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-/**
+
 @Service
 public class UserService {
 
@@ -34,7 +32,9 @@ public class UserService {
     private UserProfile userProfile;
 
     @Autowired
-    public UserService(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder, JWTUtils jwtUtils, @Lazy AuthenticationManager authenticationManager,
+    public UserService(UserRepository userRepository,
+                       @Lazy PasswordEncoder passwordEncoder, JWTUtils jwtUtils,
+                       @Lazy AuthenticationManager authenticationManager,
                        @Lazy MyUserDetails myUserDetails) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -89,9 +89,6 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    //check if user is logged in
-    private boolean isLoggedIn(User user) {
-        return user != null && user.isLoggedIn();
-    }
 
-}*/
+
+}
