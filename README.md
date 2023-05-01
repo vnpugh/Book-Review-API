@@ -31,5 +31,20 @@ for this project is monolithic, utilizing PostgreSQL as the database and deployi
 <p> To keep track of the project's progress, I created a Kanban board in Github projects. The user stories were
 added to the board and broken down into smaller tasks. The tasks were then assigned to the appropriate
 milestone and due date. This allowed me to also map out the API endpoints and the database models. </p>
-<img align="center" width="700" height="500" src="images/kanban.png" alt="kanban">
+<img align="center" width="800" height="500" src="images/kanban.png" alt="kanban">
+
+<h2>User Stories:busts_in_silhouette:</h2>
+<p>The following user stories included:</p>
+<ul>
+<li>As a user, I want to search for books and book reviews by using various parameters.</li>
+<li>As a user, I want to retrieve a list of book reviews by other readers like myself.</li>
+<li>As a user, I want to retrieve a list of all book review ratings.</li>
+<li>As a user, I want to securely find another fellow reader by their email address.</li>
+<li>As a user, I want to securely update a review that I;ve previously written if I make a mistake.</li>
+<li>As a user, I want to securely update my user profile and information.</li>
+<li>As a user, I want to securely log in to my account.</li>
+<li>As a user, I want to securely register another profile for a family member.</li>
+<li>As a user, I want to securely delete a previously written book review when I'm logged in the app.</li>
+</ul>
+<h2>API Endpoints</h2>
 
