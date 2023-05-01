@@ -54,18 +54,18 @@ milestone and due date. This allowed me to also map out the API endpoints and th
  <li><strong>Project Management</strong></li>
  📋Github Projects (Kanban Board)
  <li><strong>Version Control</strong></li>
- 🕛GitHub
-:small_blue_diamond:Git Bash (Command Line)
+ <li>🕛GitHub</li>
+<li>:small_blue_diamond:Git Bash (Command Line)</li>
  <li><strong>Backend Tools</strong></li>
-:small_blue_diamond:IntelliJ (IDE)
-:small_blue_diamond:PostgreSQL (Database)
-:small_blue_diamond:Postman (API Testing)
-:small_blue_diamond:Spring Boot (Framework)
-:small_blue_diamond:Spring Data JPA (ORM)
-:small_blue_diamond:Spring Security (Authentication)
-:small_blue_diamond:Spring Web (RESTful Web Services)
-:small_blue_diamond:JWT (Token)
-:small_blue_diamond:Tomcat (Server)
-:small_blue_diamond:Java (Programming Language)
-:small_blue_diamond:Maven (Dependency Management)
+<li>:small_blue_diamond:IntelliJ (IDE)</li>
+<li>:small_blue_diamond:PostgreSQL (Database)</li>
+<li>:small_blue_diamond:Postman (API Testing)</li>
+<li>:small_blue_diamond:Spring Boot (Framework)</li>
+<li>:small_blue_diamond:Spring Data JPA (ORM)</li>
+<li>:small_blue_diamond:Spring Security (Authentication)</li>
+<li>:small_blue_diamond:Spring Web (RESTful Web Services)</li>
+<li>:small_blue_diamond:JWT (Token)</li>
+<li>:small_blue_diamond:Tomcat (Server)</li>
+<li>:small_blue_diamond:Java (Programming Language)</li>
+<li>:small_blue_diamond:Maven (Dependency Management)</li>
 </ul>
