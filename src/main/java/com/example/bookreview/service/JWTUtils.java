@@ -4,7 +4,6 @@ import com.example.bookreview.security.MyUserDetails;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,6 +11,20 @@ import java.util.logging.Logger;
 @Service
 public class JWTUtils {
 
+    /**
+     * JWTUtils class is responsible for generating, parsing, and validating JSON Web Tokens (JWTs).
+     * generateJwtToken() is called once when the user is created.
+     * getUserNameFromJwtToken() is called for every single request.
+     * validateJwtToken() is called for every single request.
+     * @param myUserDetails
+     * @return
+     * @throws SecurityException
+     * @throws MalformedJwtException
+     * @throws ExpiredJwtException
+     * @throws UnsupportedJwtException
+     * @throws IllegalArgumentException
+     * @throws Exception
+     */
     Logger logger = Logger.getLogger(JWTUtils.class.getName());
 
     @Value("${jwt-secret}")
