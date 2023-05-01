@@ -1,2 +1,1 @@
-#Book Review API :open_book: 
-
+# Book Review API
