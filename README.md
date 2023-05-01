@@ -120,7 +120,7 @@ Database was a win for me because I was able to insert, update and query data fr
 </ul>
 <h1>Credits / MVPS:star::star::star::star::star:</h1>
 <ul>
-<li>Our instructor Suresh Sigera for his lectures and code on creating REST APIs and JWT Tokens.></li>
+<li>Our instructor Suresh Sigera for his lectures and code on creating REST APIs and JWT Tokens.</li>
 <li>Thank you to Jeff Ou, Kevin Barrios, and Dominique Akers for the brainstorming process on Discord. It was fun!</li>
 <li>Thank you to Dominique Collins for buying me coffee!</li>
 </ul>
