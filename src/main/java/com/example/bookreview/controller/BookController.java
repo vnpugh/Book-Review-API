@@ -1,16 +1,10 @@
 package com.example.bookreview.controller;
 
-import com.example.bookreview.exception.InformationNotFoundException;
+
 import com.example.bookreview.model.Book;
-import com.example.bookreview.model.Review;
-import com.example.bookreview.repository.BookRepository;
 import com.example.bookreview.service.BookService;
-import com.example.bookreview.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +15,7 @@ import java.util.*;
  *Spring MVC REST Controller class that will handle HTTP request.
  *separating the business logic -> BookService to perform book operations.
  */
-/**
+
 @RestController
 @RequestMapping(path = "/api") // http://localhost:9092/api/
 public class BookController {
@@ -32,15 +26,14 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    @GetMapping("/books/sales")
-    public ResponseEntity<List<Book>> getBooksBySales() {
-        List<Book> books = bookService.getBooksBySales();
-        return ResponseEntity.ok(books);
-    }
+    //@GetMapping("/books/sales")
+   // public ResponseEntity<List<Book>> getBooksBySales() {
+       // List<Book> books = bookService.getBooksBySales();
+       // return ResponseEntity.ok(books);
+    //}
 
-    /**
-    @GetMapping(path = "/books/search")
-    public List<Book> searchBooks(
+    @GetMapping(path = "/books/search") //http://localhost:9092/api/books/search/
+    public List<Book> getBooks(
             @RequestParam(required = false) String author,
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String genre,
@@ -48,9 +41,10 @@ public class BookController {
             @RequestParam(required = false) String isbn,
             @RequestParam(required = false) Integer sales,
             @RequestParam(required = false) Integer weeks,
-            @RequestParam(required = false) Boolean bestSeller,
             @RequestParam(required = false) Double rating) {
 
-        return bookService.searchBooks(author, title, genre, yearPublished, isbn, sales, weeks, bestSeller, rating);
+        return bookService.getBooks(author, title, genre, yearPublished, isbn, sales,
+                weeks, rating);
     }
-            */
+}
+

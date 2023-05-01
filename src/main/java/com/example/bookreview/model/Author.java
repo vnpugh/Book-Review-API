@@ -1,7 +1,12 @@
 package com.example.bookreview.model;
 
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "authors") // SQL table name
@@ -21,6 +26,13 @@ public class Author {
     private Integer age;
     @Column
     private String genre;
+
+    @OneToMany(mappedBy = "author", orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+     private List<Book> books;
+    //private List<Book> books = new ArrayList<>();
+
+
 
     public Author(Long id, String name, String country, Integer age, String genre) {
         this.id = id;

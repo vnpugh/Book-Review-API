@@ -1,11 +1,7 @@
 package com.example.bookreview.controller;
 
 import com.example.bookreview.exception.*;
-import com.example.bookreview.model.Book;
-import com.example.bookreview.model.Review;
-import com.example.bookreview.model.User;
-import com.example.bookreview.service.BookService;
-import com.example.bookreview.service.ReviewService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.bookreview.service.BookService.getCurrentLoggedInUser;
+
 
 /**
 @RestController
