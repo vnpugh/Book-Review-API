@@ -47,6 +47,25 @@ milestone and due date. This allowed me to also map out the API endpoints and th
 <li>As a user, I want to securely delete a previously written book review when I'm logged in the app.</li>
 </ul>
 <h2>API Endpoints</h2>
-<center><img align="center" width="700" height="500" src="images/api.png" alt="api"></center>
+<center><img align="center" width="800" height="600" src="images/api.png" alt="api"></center>
 
-
+<h1>Technologies & Tools Used🛠️</h1>
+<ul>
+ <li><strong>Project Management</strong></li>
+ 📋Github Projects (Kanban Board)
+ <li><strong>Version Control</strong></li>
+ 🕛GitHub
+:small_blue_diamond:Git Bash (Command Line)
+ <li><strong>Backend Tools</strong></li>
+:small_blue_diamond:IntelliJ (IDE)
+:small_blue_diamond:PostgreSQL (Database)
+:small_blue_diamond:Postman (API Testing)
+:small_blue_diamond:Spring Boot (Framework)
+:small_blue_diamond:Spring Data JPA (ORM)
+:small_blue_diamond:Spring Security (Authentication)
+:small_blue_diamond:Spring Web (RESTful Web Services)
+:small_blue_diamond:JWT (Token)
+:small_blue_diamond:Tomcat (Server)
+:small_blue_diamond:Java (Programming Language)
+:small_blue_diamond:Maven (Dependency Management)
+</ul>
