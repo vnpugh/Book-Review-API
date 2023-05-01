@@ -1,6 +1,6 @@
 package com.example.bookreview.repository;
 
-/**
+
 import com.example.bookreview.model.Book;
 import com.example.bookreview.model.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,4 +23,3 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     void deleteByUserIdAndReviewId(Long id, Long reviewId);
 }
-*/

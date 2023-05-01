@@ -33,7 +33,6 @@ public class Author {
     //private List<Book> books = new ArrayList<>();
 
 
-
     public Author(Long id, String name, String country, Integer age, String genre) {
         this.id = id;
         this.name = name;
@@ -44,7 +43,6 @@ public class Author {
 
     public Author() {
     }
-
 
     public Long getId() {
         return id;
