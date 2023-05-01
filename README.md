@@ -51,12 +51,14 @@ milestone and due date. This allowed me to also map out the API endpoints and th
 
 <h1>Technologies & Tools Used🛠️</h1>
 <ul>
- <li><strong>Project Management</strong></li>
+<li><strong>Project Management</strong></li>
  📋Github Projects (Kanban Board)
- <li><strong>Version Control</strong></li>
- <li>🕛GitHub</li>
+<li><strong>Version Control</strong></li>
+<li>🕛GitHub</li>
 <li>:small_blue_diamond:Git Bash (Command Line)</li>
- <li><strong>Backend Tools</strong></li>
+<li><strong>Wireframe</strong></li>
+<li>:small_blue_diamond:Diagrams.net</li>
+<li><strong>Backend Tools</strong></li>
 <li>:small_blue_diamond:IntelliJ (IDE)</li>
 <li>:small_blue_diamond:PostgreSQL (Database)</li>
 <li>:small_blue_diamond:Postman (API Testing)</li>
@@ -69,3 +71,19 @@ milestone and due date. This allowed me to also map out the API endpoints and th
 <li>:small_blue_diamond:Java (Programming Language)</li>
 <li>:small_blue_diamond:Maven (Dependency Management)</li>
 </ul>
+<h2>My Thought Process:brain:</h2>
+<p>My primary objective for this project was to develop an MVP that satisfied the technical requirements and user stories. 
+During the planning stage, I used diagrams.net to map out the models and database tables. While there were many approaches 
+and options available, I chose to keep the project diagrams as simple as possible. As a result, here is the ERD diagram 
+that I created for the database tables in PostgreSQL:</p>
+<center><img align="center" width="800" height="600" src="images/erd.png" alt="api"></center>
+
+<h4>One-to-Many Relationship</h4>
+<ul>
+<li>One author can have many books.</li>
+<li>One book can only have one author.</li>
+<li>The author_id column is a foreign key.</li>
+<li>The author_id column references the id column in the authors table.</li>
+</ul>
+
+
