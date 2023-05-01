@@ -1,5 +1,7 @@
 package com.example.bookreview.controller;
 
+/**
+
 
 import com.example.bookreview.exception.UserNotFoundException;
 import com.example.bookreview.exception.UserNotLoggedInException;
@@ -42,16 +44,12 @@ public class UserController {
     }
 
 
+    /**
     @PutMapping("/users/{userId}")
     public User updateUser(@PathVariable Long userId, @RequestBody User userObject) throws UserNotFoundException,
             UserNotLoggedInException {
         return userService.updateUser(userId, userObject);
     }
 
+    */
 
-
-
-
-
-
-}

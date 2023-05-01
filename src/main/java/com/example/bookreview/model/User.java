@@ -5,6 +5,8 @@ package com.example.bookreview.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -24,6 +26,9 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)//pull the user and the profile as well
     @JoinColumn(name = "profile_id", referencedColumnName = "id") //adding a FK
     private UserProfile userProfile;
+
+    @OneToMany(mappedBy = "user")
+    private List<Review> reviews = new ArrayList<>();
 
     public User() {
     }

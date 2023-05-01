@@ -1,5 +1,7 @@
 package com.example.bookreview.security;
 
+/**
+
 //import com.example.bookreview.service.JwtRequestFilter;
 import com.example.bookreview.service.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,4 +77,4 @@ public class SecurityConfiguration {
         return (MyUserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
     }
-}
+} */

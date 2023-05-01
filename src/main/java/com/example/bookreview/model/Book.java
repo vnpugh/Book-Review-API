@@ -2,7 +2,8 @@ package com.example.bookreview.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
-
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -15,8 +16,8 @@ public class Book {
 
     @Column
     private String title;
-    @ManyToOne
-    @JoinColumn(name = "author_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id", referencedColumnName = "id")
     @JsonIgnore
     private Author author;
     @Column
@@ -31,6 +32,10 @@ public class Book {
     private Integer weeks;
     @Column
     private Integer sales;
+
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    private List<Review> reviews = new ArrayList<>();
+
 
     public Book(Long id, String title, Author author, String genre,
                 Integer yearPublished, String isbn, double rating, Integer weeks, Integer sales) {
