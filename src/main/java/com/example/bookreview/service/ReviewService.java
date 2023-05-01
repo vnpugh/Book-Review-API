@@ -43,14 +43,17 @@ public class ReviewService {
         return reviews;
     }
 
-    public List<Review> getReviewsByReviewDate(LocalDate reviewDate) {
-        return reviewRepository.findByReviewDate(reviewDate);
-    }
-
     public List<Review> getReviewsByRating(double rating) {
         return reviewRepository.findByRating(rating);
     }
 
+
+    /**
+     * could not implement createBookReview method, but I created the POST Mapping in the ReviewController.
+     * @throws UserNotLoggedInException
+     * @throws FailedToSaveReviewException
+     * @throws MissingFieldsException
+     */
     /**
     public Review createBookReview(Review reviewObject) throws UserNotLoggedInException,
             FailedToSaveReviewException, MissingFieldsException {
@@ -67,7 +70,7 @@ public class ReviewService {
         if (reviewObject.getReviewDate() == null) {
             reviewObject.setReviewDate(LocalDate.now());
         }
-        //checks if user is logged in
+        //checks if user is logged-in
         User user = getCurrentLoggedInUser();
         if (user == null) {
             throw new UserNotLoggedInException("User is not logged in to create review.");
@@ -151,6 +154,14 @@ public class ReviewService {
         reviewRepository.delete(review);
     }
 
+    public Review getReviewById(Long reviewId) throws ReviewNotFoundException {
+Optional<Review> optionalReview = reviewRepository.findById(reviewId);
+        if (optionalReview.isPresent()) {
+            return optionalReview.get();
+        } else {
+            throw new ReviewNotFoundException("Review not found.");
+        }
+    }
 }
 
 
