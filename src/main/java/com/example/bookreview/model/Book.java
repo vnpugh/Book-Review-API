@@ -16,6 +16,14 @@ public class Book {
 
     @Column
     private String title;
+
+    /**
+     * One author can have many books.
+     * One book can only have one author.
+     * This is a many to one relationship.
+     * The author_id column is a foreign key.
+     * The author_id column references the id column in the authors table.
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     @JsonIgnore
@@ -33,6 +41,10 @@ public class Book {
     @Column
     private Integer sales;
 
+    /**
+     * One book can have many reviews.
+     * One review can only have one book.
+     */
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
 
