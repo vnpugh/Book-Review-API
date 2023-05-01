@@ -3,7 +3,6 @@ package com.example.bookreview.security;
 
 
 import com.example.bookreview.service.JwtRequestFilter;
-import com.example.bookreview.service.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,18 +33,21 @@ public class SecurityConfiguration {
         this.myUserDetailsService = myUserDetailsService;
     }
 
+    /**
+     * these beans are configuring the security of the application.
+     */
     @Bean
-    public JwtRequestFilter authJwtRequestFilter() {
-        return new JwtRequestFilter();
+    public JwtRequestFilter authJwtRequestFilter() { //responsible for handling JWT authentication.
+        return new JwtRequestFilter(); //checks if HTTP requests contain a valid JWT token in the Authorization header.
     }
 
     // register user
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
+    public BCryptPasswordEncoder passwordEncoder() { //responsible for encoding passwords using the bcrypt hashing algorithm.
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
+    @Bean //filterchain configures the security filter chain for the application ->  enables stateless sessions
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers(
                         "/auth/users/register/", "/auth/users/login/"
@@ -58,10 +60,21 @@ public class SecurityConfiguration {
         return http.build();
     }
 
+    /**
+     * authentication manager is required for JWT login.
+     * these beans are used to authenticate and authorize user access to protected resources
+       in the application. The authentication manager handles the user authentication process,
+       the authentication provider validates the user credentials, and the user details service
+       provides user information for authentication and authorization purposes.
+     * @param authConfig
+     * @return
+     * @throws Exception
+     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
+
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
