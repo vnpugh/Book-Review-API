@@ -97,6 +97,33 @@ that I created for the database tables in PostgreSQL:</p>
 <li>The name column is a foreign key.</li>
 <li>CASCADE: Any changes made to the User entity will also be applied to the UserProfile.</li>
 </ul>
+<h1>Hurdles📚😖😣</h1>
+<p>◾As I was near the end of building out the project, I had some issues with the JWT Token. Before starting the project,
+I created a 'Hello World' endpoint to test out in Postman, which worked fine. After adding the security and JWT layers later,
+I received errors relating to the token authorization.</p>
+<p>◾I created the 'createBookReview' method based on a user story, but I could not get the method to work. I was able to setup
+the parameters needed to create a new review. However, I could not implement this method in the 'ReviewService' and
+'ReviewRepository' layers. </p>
+<h1>Wins:trophy::woman_cartwheeling:</h1>
+<p>◾One win was that I was able to troubleshoot most of the bean errors that I received while building the api. Another win
+was that I was able to research various exception handling procedures and status codes, and implement these exceptions
+in my code. I included them as separate exception classes under the exception package. Finally, working with the Postgre
+Database was a win for me because I was able to insert, update and query data from the tables.</p>
+
+<h1>Resources & Documentation Used⛑️</h1>
+<ul>
+<li>Exception Handling: <a href="https://www.digitalocean.com/community/tutorials/exception-handling-in-java">Digital Ocean</a></li>
+<li>Response Entity: <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html">Spring Framework</a></li>
+<li>HTTP Status Codes: <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status">Mozilla Developer</a></li>
+<li>MVN Repository: <a href="https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web/3.0.5">SpringBoot Starter Web</a></li>
+<li>JWT: <a href="https://jwt.io/introduction">JWT Debugger</a></li>
+</ul>
+<h1>Credits / MVPS:star::star::star::star::star:</h1>
+<ul>
+<li>Our instructor Suresh Sigera for his lectures and code on creating REST APIs and JWT Tokens.></li>
+<li>Thank you to Jeff Ou, Kevin Barrios, and Dominique Akers for the brainstorming process on Discord. It was fun!</li>
+<li>Thank you to Dominique Collins for buying me coffee!</li>
+</ul>
 
 
 
