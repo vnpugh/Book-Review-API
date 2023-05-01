@@ -47,5 +47,5 @@ milestone and due date. This allowed me to also map out the API endpoints and th
 <li>As a user, I want to securely delete a previously written book review when I'm logged in the app.</li>
 </ul>
 <h2>API Endpoints</h2>
-<img align="center" width="900" height="700" src="images/api.png" alt="api">
+<img align="center" width="700" height="500" src="images/api.png" alt="api">
 
