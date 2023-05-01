@@ -19,6 +19,16 @@ import java.util.logging.Logger;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
+    /**
+     * method implements JWT authentication filter for Spring Security.
+     * The filter extracts a JWT token from the "Authorization" header of the incoming request,
+       and if the token is valid, sets the authentication in the SecurityContext.
+     * logger is used to log the error messages.
+     * myUserDetailsService is used to load user-specific data in the security framework.
+     * jwtUtils is used to validate the JWT token.
+     * parseJwt method is used to parse the JWT token.
+     * doFilterInternal method is used to filter the incoming request.
+     */
     Logger logger = Logger.getLogger(JwtRequestFilter.class.getName());
 
     @Autowired
