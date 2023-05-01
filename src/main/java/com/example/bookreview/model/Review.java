@@ -42,15 +42,17 @@ public class Review {
     private User user;
 
 
-
-    public Review(Long id, String userName, String author, String title, LocalDate reviewDate, String reviewText, Book book) {
+    public Review(Long id, String userName, String author, String title, LocalDate reviewDate,
+                  String reviewText, double rating, Book book, User user) {
         this.id = id;
         this.userName = userName;
         this.author = author;
         this.title = title;
         this.reviewDate = reviewDate;
         this.reviewText = reviewText;
+        this.rating = rating;
         this.book = book;
+        this.user = user;
     }
 
     public Review() {
@@ -104,11 +106,30 @@ public class Review {
         this.reviewText = reviewText;
     }
 
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
     //setter for review
     public void setUser(User user) {
         this.user = user;
     }
-
 
 
     @Override
@@ -116,12 +137,13 @@ public class Review {
         return "Review{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
-                ", author=" + author +
+                ", author='" + author + '\'' +
                 ", title='" + title + '\'' +
                 ", reviewDate=" + reviewDate +
                 ", reviewText='" + reviewText + '\'' +
+                ", rating=" + rating +
+                ", book=" + book +
+                ", user=" + user +
                 '}';
     }
-
-
 }

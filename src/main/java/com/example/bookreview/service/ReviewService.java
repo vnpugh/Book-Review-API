@@ -131,7 +131,7 @@ public class ReviewService {
             // Update the review
             review.setTitle(reviewObject.getTitle());
             review.setAuthor(reviewObject.getAuthor());
-            review.setGenre(reviewObject.getGenre());
+            review.setReviewText(reviewObject.getReviewText());
             review.setRating(reviewObject.getRating());
             review.setComment(reviewObject.getComment());
             review.setReviewDate(LocalDate.now());
