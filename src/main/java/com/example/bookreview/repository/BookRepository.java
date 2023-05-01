@@ -11,9 +11,7 @@ import java.util.List;
 public interface BookRepository extends JpaRepository<Book, Long> {
 
     /**
-     * custom methods used to query the database for book information.
-     *
-     * @return
+     * custom method used to query the database for book information.
      */
     List<Book> findByAuthorAndTitleAndGenreAndYearPublishedAndIsbnAndSalesAndWeeksAndRating
             (String author, String title, String genre, Integer yearPublished,
