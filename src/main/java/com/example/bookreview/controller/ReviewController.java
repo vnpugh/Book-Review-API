@@ -5,6 +5,7 @@ import com.example.bookreview.model.Book;
 import com.example.bookreview.model.Review;
 import com.example.bookreview.model.User;
 import com.example.bookreview.repository.BookRepository;
+import com.example.bookreview.repository.ReviewRepository;
 import com.example.bookreview.service.BookService;
 import com.example.bookreview.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,8 @@ public class ReviewController {
     private BookService bookService;
     @Autowired
     private BookRepository bookRepository;
+    @Autowired
+    private ReviewRepository reviewRepository;
 
     @Autowired//going to inject ReviewService at runtime by the Spring
     public void setReviewService(ReviewService reviewService) {

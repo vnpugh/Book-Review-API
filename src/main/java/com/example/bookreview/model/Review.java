@@ -1,5 +1,7 @@
 package com.example.bookreview.model;
 
+import com.example.bookreview.repository.ReviewRepository;
+import com.example.bookreview.service.ReviewService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -11,6 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "reviews")
 public class Review {
+
 
     @Id
     @Column
@@ -27,6 +30,8 @@ public class Review {
     private LocalDate reviewDate;
     @Column
     private String reviewText;
+    @Column
+    private double rating;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id", referencedColumnName = "id")
@@ -98,6 +103,13 @@ public class Review {
     public void setReviewText(String reviewText) {
         this.reviewText = reviewText;
     }
+
+    //setter for review
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
 
     @Override
     public String toString() {

@@ -68,17 +68,14 @@ public class ReviewService {
 
     public Review createBookReview(Review reviewObject) throws UserNotLoggedInException,
             FailedToSaveReviewException, MissingFieldsException {
-        if ((reviewObject.getUsername() == null) ||
-                reviewObject.getUsername().isEmpty() ||
+        if ((reviewObject.getUserName() == null) ||
+                reviewObject.getUserName().isEmpty() ||
                 (reviewObject.getTitle() == null) ||
                 reviewObject.getTitle().isEmpty() ||
                 (reviewObject.getAuthor() == null) ||
                 reviewObject.getAuthor().isEmpty() ||
-                (reviewObject.getGenre() == null) ||
-                reviewObject.getGenre().isEmpty() ||
-                (reviewObject.getRating() == null) ||
-                (reviewObject.getComment() == null) ||
-                reviewObject.getComment().isEmpty()) {
+                (reviewObject.getReviewDate() == null) ||
+                (reviewObject.getReviewText() == null)) {
             throw new MissingFieldsException("Missing the required fields to create a new review.");
         }
         if (reviewObject.getReviewDate() == null) {
@@ -97,6 +94,16 @@ public class ReviewService {
         }
     }
 
+
+
+
+    public void deleteReview(Long reviewId) throws ReviewNotFoundException {
+        if (reviewRepository.existsById(reviewId)) {
+            reviewRepository.deleteById(reviewId);
+        } else {
+            throw new ReviewNotFoundException("Review not found with ID: " + reviewId);
+        }
+    }
 
 
 
