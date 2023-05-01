@@ -42,6 +42,11 @@ public class UserController {
     }
 
 
+    /**
+     * method to update user by userId
+     * @throws UserNotFoundException
+     * @throws UserNotLoggedInException
+     */
     @PutMapping("/users/{userId}")
     public User updateUser(@PathVariable Long userId, @RequestBody User userObject) throws UserNotFoundException,
             UserNotLoggedInException {

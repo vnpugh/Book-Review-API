@@ -23,9 +23,15 @@ public class User {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
+
     @OneToOne(cascade = CascadeType.ALL)//pull the user and the profile as well
     @JoinColumn(name = "profile_id", referencedColumnName = "id") //adding a FK
     private UserProfile userProfile;
+
+    /**
+     * One user can have many reviews.
+     * One review can have one user.
+     */
 
     @OneToMany(mappedBy = "user")
     private List<Review> reviews = new ArrayList<>();
