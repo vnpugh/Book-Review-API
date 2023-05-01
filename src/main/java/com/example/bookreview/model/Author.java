@@ -1,11 +1,8 @@
 package com.example.bookreview.model;
 
-
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,6 +24,11 @@ public class Author {
     @Column
     private String genre;
 
+    /**
+     * OneToMany relationship between Author and Book.
+     * One Author can have many Books.
+     * One Book can have only one Author.
+     */
     @OneToMany(mappedBy = "author", orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
      private List<Book> books;
@@ -44,46 +46,9 @@ public class Author {
     public Author() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
 
     @Override
     public String toString() {
