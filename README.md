@@ -27,4 +27,9 @@ for this project is monolithic, utilizing PostgreSQL as the database and deployi
 <li>Various exception handles are included to handle unexpected occurrences with the appropriate message:white_check_mark:</li>
 <li>The controllers and services are separate to conform to the MVC design pattern:white_check_mark:</li>
 </ul>
+<h1>The Planning Process🖋️</h1>
+<p> To keep track of the project's progress, I created a Kanban board in Github projects. The user stories were
+added to the board and broken down into smaller tasks. The tasks were then assigned to the appropriate
+milestone and due date. This allowed me to also map out the API endpoints and the database models. </p>
+<img align="center" width="400" height="400" src="images/kanban.png" alt="kanban">
 
