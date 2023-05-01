@@ -31,7 +31,7 @@ for this project is monolithic, utilizing PostgreSQL as the database and deployi
 <p> To keep track of the project's progress, I created a Kanban board in Github projects. The user stories were
 added to the board and broken down into smaller tasks. The tasks were then assigned to the appropriate
 milestone and due date. This allowed me to also map out the API endpoints and the database models. </p>
-<img align="center" width="900" height="500" src="images/kanban.png" alt="kanban">
+<img align="center" width="900" height="700" src="images/kanban.png" alt="kanban">
 
 <h2>User Stories:busts_in_silhouette:</h2>
 <p>The following user stories included:</p>
