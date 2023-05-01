@@ -15,4 +15,16 @@ for this project is monolithic, utilizing PostgreSQL as the database and deployi
 <li> After downloading your tools, clone this repository.</li>
 <li> Open the files in IntelliJ and run the application.</li>
 </ol>
+<h2>Technical Requirements</h2>
+<p>For this project, the following technologies were included:</p>
+<ul>
+<li>The PostgreSQL database includes five models: Author, Book, Review, User, and User Profile:white_check_mark:</li>
+<li>The environment settings are set up using Spring Profiles:white_check_mark:</li>
+<li>A combination of Spring Security and JWT tokens used to authenticate and personalize the API endpoints:white_check_mark:</li>
+<li>API endpoints and their functionality included to complete CRUD operations (create, read, update, and delete):white_check_mark:</li>
+<li>Additional API endpoints are included to perform CRUD tasks based on the business logic and user stories:white_check_mark:</li>
+<li>CRUD routes built on rest conventions are provided:white_check_mark:</li>
+<li>Various exception handles are included to handle unexpected occurrences with the appropriate message:white_check_mark:</li>
+<li>The controllers and services are separate to conform to the MVC design pattern:white_check_mark:</li>
+</ul>
 
