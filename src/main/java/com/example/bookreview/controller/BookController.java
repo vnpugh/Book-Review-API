@@ -1,6 +1,7 @@
 package com.example.bookreview.controller;
 
 
+import com.example.bookreview.exception.BookNotFoundException;
 import com.example.bookreview.model.Book;
 import com.example.bookreview.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,12 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    //@GetMapping("/books/sales")
-   // public ResponseEntity<List<Book>> getBooksBySales() {
-       // List<Book> books = bookService.getBooksBySales();
-       // return ResponseEntity.ok(books);
-    //}
-
+    /**
+     * method handles GET requests for book search using query parameters.
+       the parameters are optional, not strict, and passed to the bookService.getBooks() method
+       to retrieve a list of books that match the specified criteria.
+     * BookNotFoundException thrown if no books are found.
+     */
     @GetMapping(path = "/books/search") //http://localhost:9092/api/books/search/
     public List<Book> getBooks(
             @RequestParam(required = false) String author,
@@ -41,7 +42,7 @@ public class BookController {
             @RequestParam(required = false) String isbn,
             @RequestParam(required = false) Integer sales,
             @RequestParam(required = false) Integer weeks,
-            @RequestParam(required = false) Double rating) {
+            @RequestParam(required = false) Double rating) throws BookNotFoundException {
 
         return bookService.getBooks(author, title, genre, yearPublished, isbn, sales,
                 weeks, rating);
