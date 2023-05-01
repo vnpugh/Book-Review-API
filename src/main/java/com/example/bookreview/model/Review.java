@@ -36,7 +36,7 @@ public class Review {
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
     private User user;
 
-    
+
 
     public Review(Long id, String userName, String author, String title, LocalDate reviewDate, String reviewText, Book book) {
         this.id = id;
