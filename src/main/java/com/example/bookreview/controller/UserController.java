@@ -52,5 +52,22 @@ public class UserController {
             UserNotLoggedInException {
         return userService.updateUser(userId, userObject);
     }
+
+    /**
+     * method to find user by email address.
+     * userService is used to find user by email address.
+     * @param email
+     * @throws UserNotFoundException
+     * @throws UserNotLoggedInException
+     */
+    @GetMapping("/users/{email}/")
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+        User user = userService.findUserByEmailAddress(email);
+        if (user == null) {
+            return ResponseEntity.notFound().build(); //404 status code
+        }
+        return ResponseEntity.ok(user); //200 status code
+    }
+
 }
 

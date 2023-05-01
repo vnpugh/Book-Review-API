@@ -11,7 +11,6 @@ import com.example.bookreview.model.request.LoginRequest;
 import com.example.bookreview.model.response.LoginResponse;
 import com.example.bookreview.repository.UserRepository;
 import com.example.bookreview.security.MyUserDetails;
-import net.bytebuddy.implementation.Implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
@@ -32,9 +31,17 @@ public class UserService {
     private JWTUtils jwtUtils;
     private AuthenticationManager authenticationManager;
     private MyUserDetails myUserDetails;
-
     private UserProfile userProfile;
 
+    /**
+     * Constructor for the UserService class
+     * dependency injection
+     * lazy loading which means that the bean will be created only when it is needed.
+     * passwordEncoder is used to encode the password.
+     * jwtUtils is used to generate the JWT token.
+     * authenticationManager is used to authenticate the user.
+     * myUserDetails is used to load the user details.
+     */
     @Autowired
     public UserService(UserRepository userRepository,
                        @Lazy PasswordEncoder passwordEncoder, JWTUtils jwtUtils,
@@ -47,6 +54,12 @@ public class UserService {
         this.myUserDetails = myUserDetails;
     }
 
+    /**
+     * This method is used to create a new user.
+     * It checks if the user already exists in the database.
+     * If the user does not exist, it encodes the password and saves the user in the database.
+     * If the user already exists, it throws an InformationExistException.
+     */
     public User createUser(User userObject) {
         if (!userRepository.existsByEmailAddress(userObject.getEmailAddress())) {
             userObject.setPassword(passwordEncoder.encode(userObject.getPassword()));
@@ -57,10 +70,17 @@ public class UserService {
         }
     }
 
-    public User findUserByEmailAddress(String email) {
-        return userRepository.findUserByEmailAddress(email);
-    }
+    public User findUserByEmailAddress(String email) { return userRepository.findUserByEmailAddress(email);}
 
+    /**
+     * This method is used to login the user - the logic.
+     * It authenticates the user and generates the JWT token.
+     * If the user does not exist, it throws an AuthenticationException.
+     * If the password is incorrect, it throws an AuthenticationException.
+     * If the user is not logged in, it throws a UserNotLoggedInException.
+     * If the user is logged in, it returns the JWT token.
+     * @param loginRequest
+     */
     public ResponseEntity<?> loginUser(LoginRequest loginRequest) {
         try {
             Authentication authentication = authenticationManager.authenticate(
@@ -76,12 +96,20 @@ public class UserService {
     }
 
 
-
+    /**
+     * This method is used to update the user.
+     * It checks if the user exists in the database.
+     * If the user does not exist, it throws a UserNotFoundException.
+     * If the user is not logged in, it throws a UserNotLoggedInException.
+     * If the user exists and is logged in, it updates the user and returns the updated user.
+     * @param userId
+     * @param userObject
+     */
     public User updateUser(Long userId, User userObject) throws UserNotFoundException, UserNotLoggedInException {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id : " + userId));
 
-        // Check if the user is logged in
+        // check if the user is logged in
         if (!isLoggedIn(user)) {
             throw new UserNotLoggedInException("User not logged in.");
         }
@@ -111,8 +139,14 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    /**
+     * checks if a given user is logged-in currently by comparing the username of the User
+       with the username of the currently authenticated user from the SecurityContextHolder.
+     * @param user
+     * @return false if the user is not logged in, true otherwise.
+     */
     private boolean isLoggedIn(User user) {
-                                 // Implementation of the isLoggedIn method
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             Object principal = authentication.getPrincipal();
