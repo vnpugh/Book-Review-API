@@ -21,6 +21,7 @@ import java.util.Optional;
 public class ReviewService {
 
     private ReviewRepository reviewRepository;
+    private UserRepository userRepository;
 
 
     @Autowired //the component can use the ReviewRepository to perform database operations
@@ -46,26 +47,11 @@ public class ReviewService {
         return reviewRepository.findByReviewDate(reviewDate);
     }
 
-
-    public List<Review> getReviewsByBookId(Long bookId) {return reviewRepository.findByBookId(bookId);}
-
     public List<Review> getReviewsByRating(double rating) {
         return reviewRepository.findByRating(rating);
     }
 
-    public List<Review> getAllReviews() { //retrieves all reviews without any parameters
-        return reviewRepository.findAllBookReviews();
-    }
-
-    public Review getReviewById(Long reviewId) throws ReviewNotFoundException {
-        Optional<Review> review = reviewRepository.findById(reviewId);
-        if (review.isPresent()) {
-            return review.get();
-        } else {
-            throw new ReviewNotFoundException("Review not found with id " + reviewId);
-        }
-    }
-
+    /**
     public Review createBookReview(Review reviewObject) throws UserNotLoggedInException,
             FailedToSaveReviewException, MissingFieldsException {
         if ((reviewObject.getUserName() == null) ||
@@ -92,20 +78,7 @@ public class ReviewService {
         } catch (DataAccessException e) {
             throw new FailedToSaveReviewException("Failed to save review.");
         }
-    }
-
-
-
-
-    public void deleteReview(Long reviewId) throws ReviewNotFoundException {
-        if (reviewRepository.existsById(reviewId)) {
-            reviewRepository.deleteById(reviewId);
-        } else {
-            throw new ReviewNotFoundException("Review not found with ID: " + reviewId);
-        }
-    }
-
-
+    } */
 
 
 
@@ -133,7 +106,7 @@ public class ReviewService {
             review.setAuthor(reviewObject.getAuthor());
             review.setReviewText(reviewObject.getReviewText());
             review.setRating(reviewObject.getRating());
-            review.setComment(reviewObject.getComment());
+            review.setReviewText(reviewObject.getReviewText());
             review.setReviewDate(LocalDate.now());
 
             return reviewRepository.save(review);
@@ -162,12 +135,20 @@ public class ReviewService {
     }
 
 
+
     public void deleteReviewByUser(Long reviewId) throws UserNotLoggedInException, ReviewNotFoundException {
         User user = getCurrentLoggedInUser();
         if (user == null) {
             throw new UserNotLoggedInException("User is not logged in.");
         }
-        reviewRepository.deleteByUserIdAndReviewId(user.getId(), reviewId);
+        Review review = reviewRepository.findById(reviewId).orElse(null);
+        if (review == null) {
+            throw new ReviewNotFoundException("Review not found.");
+        }
+        if (!user.getUserName().equals(review.getUser().getUserName())) {
+            throw new IllegalArgumentException("Username does not match logged in user.");
+        }
+        reviewRepository.delete(review);
     }
 
 }

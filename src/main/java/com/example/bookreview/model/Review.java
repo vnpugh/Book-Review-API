@@ -1,13 +1,7 @@
 package com.example.bookreview.model;
 
-import com.example.bookreview.repository.ReviewRepository;
-import com.example.bookreview.service.ReviewService;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
 
 @Entity
@@ -43,7 +37,7 @@ public class Review {
 
 
     public Review(Long id, String userName, String author, String title, LocalDate reviewDate,
-                  String reviewText, double rating, Book book, User user) {
+                  String reviewText, Book book) {
         this.id = id;
         this.userName = userName;
         this.author = author;

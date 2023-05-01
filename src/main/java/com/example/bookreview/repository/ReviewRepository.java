@@ -12,14 +12,14 @@ import java.util.List;
 @Repository //JpaRepo provides basic CRUD functionality
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
-    void createReview(Review review);
+    //void createBookReview(Review review);
     List<Review> findByUserId(Long userId);
-    List<Review> findByBookId(Long bookId);
     List<Review> findByRating (Double rating);
 
-    List<Review> findAllBookReviews();
     List<Review> findByReviewDate(LocalDate reviewDate);
-    void saveBook(Book book);
 
-    void deleteByUserIdAndReviewId(Long id, Long reviewId);
+
+
+
+    void deleteReviewByUser(Long reviewId);
 }

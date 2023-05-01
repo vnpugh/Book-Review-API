@@ -75,7 +75,6 @@ public class ReviewController {
                 reviewObject.getTitle().isEmpty() ||
                 reviewObject.getAuthor() == null ||
                 reviewObject.getAuthor().isEmpty() ||
-                reviewObject.getReviewDate() == null ||
                 Objects.isNull(reviewObject.getReviewDate()) ||
                 reviewObject.getReviewText() == null ||
                 reviewObject.getReviewText().isEmpty()) {
@@ -96,8 +95,11 @@ public class ReviewController {
             return ResponseEntity.notFound().build();
         }
         //create a new review object
-        Review review = new Review(null, reviewObject.getUserName(), reviewObject.getAuthor(),
-                reviewObject.getTitle(), reviewObject.getReviewDate(), reviewObject.getReviewText(), book);
+        Review review = new Review(null, reviewObject.getUserName(),
+                reviewObject.getAuthor(),
+                reviewObject.getTitle(),
+                reviewObject.getReviewDate(),
+                reviewObject.getReviewText(), book);
         //set the user for the review
         review.setUser(user);
         //save the review to the database

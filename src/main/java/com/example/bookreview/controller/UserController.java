@@ -1,6 +1,5 @@
 package com.example.bookreview.controller;
 
-/**
 
 
 import com.example.bookreview.exception.UserNotFoundException;
@@ -51,5 +50,4 @@ public class UserController {
         return userService.updateUser(userId, userObject);
     }
 
-    */
 
