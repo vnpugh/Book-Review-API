@@ -1,7 +1,6 @@
 package com.example.bookreview.service;
 
-
-//import com.example.bookreview.security.MyUserDetailsService;
+import com.example.bookreview.security.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-/**
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
@@ -64,4 +62,3 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 }
-*/

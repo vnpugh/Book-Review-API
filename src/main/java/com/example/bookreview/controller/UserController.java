@@ -34,7 +34,6 @@ public class UserController {
     }
 
 
-
     //login account and create a book review
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
@@ -43,11 +42,10 @@ public class UserController {
     }
 
 
-    /**
     @PutMapping("/users/{userId}")
     public User updateUser(@PathVariable Long userId, @RequestBody User userObject) throws UserNotFoundException,
             UserNotLoggedInException {
         return userService.updateUser(userId, userObject);
     }
-
+}
 
