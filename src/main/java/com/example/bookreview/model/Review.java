@@ -27,9 +27,20 @@ public class Review {
     @Column
     private double rating;
 
+    /**
+     * The @ManyToOne annotation is used to specify the relationship between the Book and Review entities.
+     * The @JoinColumn annotation is used to specify the foreign key column in the Review table.
+     * The fetch type is set to LAZY, which means that the book object will be fetched when it is accessed.
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id", referencedColumnName = "id")
     private Book book;
+
+    /**
+     * The @ManyToOne annotation is used to specify the relationship between the User and Review entities.
+     * The @JoinColumn annotation is used to specify the foreign key column in the Review table.
+     * The fetch type is set to LAZY, which means that the user object will be fetched when it is accessed.
+     */
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
